@@ -20,7 +20,7 @@ Deno.serve(async (req: Request) => {
   let payload: Record<string, unknown>;
   try {
     const raw = await req.text();
-    if (raw.length > 16000) return json(413, { error: "Order details are too large." };
+    if (raw.length > 16000) return json(413, { error: "Order details are too large." });
     payload = JSON.parse(raw);
   } catch {
     return json(400, { error: "Please send valid order details." });
