@@ -75,11 +75,11 @@ body.admin-mode #sellerModal .dialog{max-height:none;width:min(1000px,100%);marg
 </style>
 </head>
 <body>
-<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button><a class="mini" href="./admin.html" style="text-decoration:none">ADMIN</a></div></header>
+<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button></div></header>
 <main>
 <section class="portal-landing" id="portalLanding">
   <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="portal-copy"><div class="brand-mark">✧ ORBIT ATELIER ✧</div><div class="eyebrow" style="margin-top:26px">A portal to another dimension</div><h1>BEYOND THE<br><span class="gold">ORDINARY.</span></h1><p>Enter a new universe of style. Explore the ORBIT collection through an immersive fashion experience.</p><button class="btn portal-enter" id="enterShop">ENTER THE ORBIT&nbsp; ↗</button><div class="eyebrow" style="margin-top:24px;font-size:9px">Fashion without boundaries</div></div>
+  <div class="portal-copy" aria-hidden="true"></div>
 </section>
 <section class="globe-stage" id="globeStage">
   <canvas id="globeCanvas"></canvas>
@@ -101,11 +101,11 @@ body.admin-mode #sellerModal .dialog{max-height:none;width:min(1000px,100%);marg
 <div id="loginPanel"><div class="fields"><div class="field full"><label>ADMIN EMAIL</label><input id="adminEmail" type="email" autocomplete="email" placeholder="Enter administrator email"></div></div><div class="actions"><button class="btn" id="sendLogin">SEND SECURE SIGN-IN LINK</button></div></div>
 <div id="dashboardPanel" hidden>
 <div class="admin-row"><p class="muted" id="adminIdentity"></p><button class="mini" id="signOut">SIGN OUT</button></div>
-<div class="admin-tabs"><button class="mini active" data-tab="manageProducts">PRODUCTS & STOCK</button><button class="mini" data-tab="manageOrders">ORDERS</button></div>
+<div class="admin-tabs"><button class="mini active" data-tab="manageProducts">PRODUCTS & STOCK</button><button class="mini" data-tab="manageOrders">ORDERS</button><button class="mini" id="adminAccessTab" data-tab="manageAdmins" hidden>ADMIN ACCESS</button></div>
 <section class="admin-section active" id="manageProducts"><h3>Add a product</h3><p class="muted">Add a shirt or trouser, stock for each size, and several photos from your phone.</p>
 <div class="fields"><div class="field"><label>PRODUCT NAME</label><input id="newName" maxlength="120" placeholder="e.g. Signature Shirt"></div><div class="field"><label>CATEGORY</label><select id="newCategory"><option value="shirts">Shirts</option><option value="trousers">Trousers</option></select></div><div class="field"><label>PRICE (GH₵)</label><input id="newPrice" type="number" min="0" step="0.01"></div><div class="field"><label>SIZE STOCK</label><input id="newSizes" value="S:0,M:0,L:0,XL:0,XXL:0" placeholder="S:4,M:3,L:2"></div><div class="field full"><label>DESCRIPTION</label><textarea id="newDescription" maxlength="2000"></textarea></div><div class="field full"><label>PRODUCT PHOTOS (SELECT MULTIPLE)</label><input id="newImages" type="file" accept="image/*" multiple><span class="muted">Up to 8 images, maximum 8 MB each. Common browser-supported image formats are accepted; unsupported or damaged files will be rejected.</span></div></div><button class="btn" id="createProduct">SAVE PRODUCT</button>
 <h3 style="margin-top:28px">Your products</h3><div id="adminProducts"></div></section>
-<section class="admin-section" id="manageOrders"><h3>Customer orders</h3><p class="muted">Customer contact and delivery details are shown only inside this authenticated seller portal.</p><div id="adminOrders"></div></section>
+<section class="admin-section" id="manageOrders"><h3>Customer orders</h3><p class="muted">Customer contact and delivery details are shown only inside this authenticated seller portal.</p><div id="adminOrders"></div></section><section class="admin-section" id="manageAdmins"><h3>Administrator access</h3><p class="muted">Only the store owner can invite or remove administrators. Invited people sign in using their own email address and secure sign-in link.</p><div class="fields"><div class="field full"><label>EMAIL TO AUTHORISE</label><input id="newAdminEmail" type="email" autocomplete="email" placeholder="person@example.com"></div></div><button class="btn" id="addAdmin">AUTHORISE ADMIN</button><div id="adminList" style="margin-top:18px"></div></section>
 </div></div></div>
 <div class="notice" id="notice"></div>
 
@@ -118,7 +118,8 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_3U0WALcybE3uCX1BM6ORMQ_XrKm3lKX
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const money = n => "GH₵" + Number(n || 0).toFixed(2);
 const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let products = [], cart = [], selected = null, filterBy = "All", isAdmin = false, portalTimer = null;
+const OWNER_EMAIL = "elishaocansey23@gmail.com";
+let products = [], cart = [], selected = null, filterBy = "All", isAdmin = false, isOwner = false, portalTimer = null;
 
 function toast(message) {
   const node = document.getElementById("notice");
@@ -260,7 +261,7 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
 });
 
 document.getElementById("sendLogin").addEventListener("click", async () => {
-  const email = document.getElementById("adminEmail").value.trim();
+  const email = document.getElementById("adminEmail").value.trim().toLowerCase();
   if (!email) return toast("Enter the administrator email.");
   const button = document.getElementById("sendLogin");
   button.disabled = true; button.textContent = "SENDING…";
@@ -270,7 +271,7 @@ document.getElementById("sendLogin").addEventListener("click", async () => {
   });
   button.disabled = false; button.textContent = "SEND SECURE SIGN-IN LINK";
   if (error) return toast(error.message);
-  document.getElementById("sellerMessage").textContent = "A sign-in link has been sent if this address is eligible. Open it on this device to continue.";
+  document.getElementById("sellerMessage").textContent = "A sign-in link has been sent if this address is authorised. Open it on this device to continue.";
   toast("Check your email for the secure sign-in link.");
 });
 async function verifyAdmin() {
@@ -285,13 +286,17 @@ async function verifyAdmin() {
     return;
   }
   isAdmin = true;
+  isOwner = (session.user.email || "").toLowerCase() === OWNER_EMAIL;
+  document.getElementById("adminAccessTab").hidden = !isOwner;
   document.getElementById("loginPanel").hidden = true;
   document.getElementById("dashboardPanel").hidden = false;
   document.getElementById("adminIdentity").textContent = "Signed in securely as " + (session.user.email || "store administrator");
   await refreshAdmin();
+  if (isOwner) await renderAdminAccess();
 }
 function setAdminState(value) {
   isAdmin = value;
+  if (!value) { isOwner = false; document.getElementById("adminAccessTab").hidden = true; }
   document.getElementById("loginPanel").hidden = value;
   document.getElementById("dashboardPanel").hidden = !value;
 }
@@ -308,6 +313,7 @@ document.querySelectorAll("[data-tab]").forEach(button => button.addEventListene
   document.querySelectorAll("[data-tab]").forEach(b => b.classList.toggle("active", b === button));
   document.querySelectorAll(".admin-section").forEach(s => s.classList.toggle("active", s.id === button.dataset.tab));
   if (button.dataset.tab === "manageOrders") loadAdminOrders();
+  if (button.dataset.tab === "manageAdmins" && isOwner) renderAdminAccess();
 }));
 async function refreshAdmin() {
   if (!isAdmin) return;
@@ -400,6 +406,33 @@ document.getElementById("createProduct").addEventListener("click", async () => {
     button.disabled = false; button.textContent = "SAVE PRODUCT";
   }
 });
+async function renderAdminAccess() {
+  if (!isOwner) return;
+  const root = document.getElementById("adminList");
+  root.innerHTML = '<p class="muted">Loading authorised administrators…</p>';
+  const { data, error } = await supabase.rpc("oa_list_admins");
+  if (error) { root.textContent = error.message; return; }
+  root.innerHTML = (data || []).map(row => '<div class="admin-card admin-row"><span>' + esc(row.email || "Unknown email") + '</span>' +
+    ((row.email || "").toLowerCase() === OWNER_EMAIL ? '<span class="muted">STORE OWNER</span>' : '<button class="mini" data-remove-admin="' + esc(row.email) + '">REMOVE ACCESS</button>') + '</div>').join("") || '<p class="muted">No administrators listed yet.</p>';
+  root.querySelectorAll("[data-remove-admin]").forEach(button => button.addEventListener("click", async () => {
+    if (!isOwner || !confirm("Remove administrator access for " + button.dataset.removeAdmin + "?")) return;
+    const { error: removeError } = await supabase.rpc("oa_remove_admin", { p_email: button.dataset.removeAdmin });
+    if (removeError) return toast(removeError.message);
+    toast("Administrator access removed.");
+    await renderAdminAccess();
+  }));
+}
+document.getElementById("addAdmin").addEventListener("click", async () => {
+  if (!isOwner) return;
+  const input = document.getElementById("newAdminEmail");
+  const email = input.value.trim().toLowerCase();
+  if (!email) return toast("Enter an email address.");
+  const { error } = await supabase.rpc("oa_add_admin", { p_email: email });
+  if (error) return toast(error.message);
+  input.value = "";
+  toast("Administrator authorised. They can now sign in with their email.");
+  await renderAdminAccess();
+});
 async function loadAdminOrders() {
   if (!isAdmin) return;
   const root = document.getElementById("adminOrders");
@@ -419,11 +452,8 @@ async function loadAdminOrders() {
   }));
 }
 let globeApp = null;
-document.getElementById("enterShop").addEventListener("click", () => {
+function enterFromWormhole() {
   const landing = document.getElementById("portalLanding");
-  const button = document.getElementById("enterShop");
-  button.disabled = true;
-  button.textContent = "TRAVELLING THROUGH THE ORBIT…";
   landing.classList.add("blast");
   setTimeout(() => {
     landing.style.display = "none";
@@ -432,7 +462,7 @@ document.getElementById("enterShop").addEventListener("click", () => {
     if (!globeApp) globeApp = createHolographicGlobe();
     else globeApp.resize();
   }, 1320);
-});
+}
 function skipPortal() {
   document.getElementById("portalLanding").style.display = "none";
   document.getElementById("globeStage").classList.add("active");
@@ -482,6 +512,21 @@ function createHolographicGlobe() {
     else {const dot=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0x292027,side:THREE.DoubleSide}));dot.userData.productId=p.id;cardGroup.add(dot);cards.push(dot)}
     frame.userData.productId=p.id; cards.push(frame); group.add(cardGroup);
   });
+  if (!available.length) {
+    loader.load("./demo-shirt.svg", tex => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      const demoGroup = new THREE.Group();
+      demoGroup.position.set(0, 0, 2.52);
+      demoGroup.lookAt(0, 0, 5);
+      const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 1.34), new THREE.MeshBasicMaterial({color:0x73ddff,transparent:true,opacity:.18,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
+      glow.position.z = .01; demoGroup.add(glow);
+      const preview = new THREE.Mesh(new THREE.PlaneGeometry(.98,1.28),new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true}));
+      preview.position.z = .035; demoGroup.add(preview);
+      const scan = new THREE.Mesh(new THREE.PlaneGeometry(.98,1.28),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.08,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));
+      scan.position.z = .05; demoGroup.add(scan);
+      group.add(demoGroup);
+    });
+  }
   const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
   let down=false, px=0,py=0, moved=false, selectedId=null;
   host.addEventListener("pointerdown",e=>{down=true;px=e.clientX;py=e.clientY;moved=false;host.setPointerCapture(e.pointerId)});
@@ -549,6 +594,9 @@ if (new URLSearchParams(location.search).get("admin") === "1") { document.body.c
 await loadProducts();
 const { data: initialSession } = await supabase.auth.getSession();
 if (initialSession?.session) await verifyAdmin();
+if (new URLSearchParams(location.search).get("admin") !== "1") {
+  portalTimer = setTimeout(enterFromWormhole, 2600);
+}
 </script>
 </body>
 </html>
