@@ -22,12 +22,60 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 .modal{display:none;position:fixed;inset:0;z-index:20;background:#000d;place-items:center;padding:16px}.modal.show{display:grid}.dialog{width:min(650px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid #806c4b;padding:24px}.dialog.wide{width:min(1000px,100%)}.dialog h2{font-size:30px;font-weight:500;margin:0 0 8px}.muted{font-size:12px;color:var(--muted);line-height:1.6}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--pale);letter-spacing:.08em}.field input,.field select,.field textarea{background:#0b090d;border:1px solid #403642;color:white;padding:11px;width:100%;border-radius:0}.field textarea{min-height:70px;resize:vertical}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}.cartline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.notice{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--pale);color:#17120d;padding:12px 18px;display:none;font-size:12px;z-index:30;max-width:90vw;text-align:center}
 .admin-tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}.admin-tabs button.active{background:#d7b87922}.admin-section{display:none}.admin-section.active{display:block}.admin-card{border:1px solid var(--line);padding:14px;margin:12px 0;background:#100d12}.admin-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.size-stock{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.size-stock label{font-size:10px;color:var(--muted)}.size-stock input{width:65px;display:block;margin-top:5px}.order-status{background:#0b090d;border:1px solid #806c4b;color:var(--pale);padding:8px}.thumbs{display:flex;gap:7px;flex-wrap:wrap}.thumbs img{width:58px;height:58px;object-fit:cover;border:1px solid var(--line)}
 @media(max-width:760px){.products{grid-template-columns:1fr}.art{height:300px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.nav{padding:18px 5vw}.nav>span{display:none}.section{padding:65px 5vw}.dialog{padding:18px}.bottom{align-items:flex-start}.nav-actions{gap:6px}}
+
+/* ORBIT cinematic experience */
+.portal-landing{min-height:100svh;position:relative;overflow:hidden;display:grid;place-items:center;text-align:center;background:#030306}
+.portal-landing:before,.portal-landing:after{content:"";position:absolute;inset:-30%;pointer-events:none}
+.portal-landing:before{background:repeating-radial-gradient(ellipse at 50% 48%,transparent 0 7%,rgba(221,177,101,.11) 7.2%,transparent 7.8% 11%);filter:blur(1px);transform:perspective(700px) rotateX(8deg);animation:portalPulse 8s ease-in-out infinite}
+.portal-landing:after{background:radial-gradient(ellipse at center,transparent 8%,rgba(5,4,8,.08) 22%,#030306 66%);box-shadow:inset 0 0 150px #000}
+.portal-core{position:absolute;width:min(78vw,760px);aspect-ratio:1;border-radius:50%;background:radial-gradient(ellipse at center,#050408 0 24%,transparent 25%),repeating-radial-gradient(ellipse at center,transparent 0 7px,rgba(246,198,111,.6) 8px,transparent 11px,transparent 22px);filter:drop-shadow(0 0 30px #c58c3c);transform:rotateX(62deg) rotateZ(-16deg);animation:portalSpin 24s linear infinite}
+.portal-core:before{content:"";position:absolute;inset:14%;border:2px solid #f5d49b;border-radius:50%;box-shadow:0 0 22px #d69d4e,0 0 70px #b9782d,inset 0 0 50px #b9782d}
+.portal-core:after{content:"";position:absolute;inset:28%;border-radius:50%;background:radial-gradient(circle,#000 20%,#08050a 56%,transparent 70%);box-shadow:0 0 90px 35px #d18c3a}
+.portal-copy{position:relative;z-index:2;padding:130px 22px 70px;max-width:850px}
+.brand-mark{font-family:"Playfair Display",serif;color:#e7c27d;letter-spacing:.22em;font-size:12px}
+.portal-copy h1{font-size:clamp(48px,9vw,108px);text-shadow:0 0 30px #b98545}
+.portal-copy p{max-width:520px;margin:0 auto 30px}
+.portal-enter{box-shadow:0 0 24px #c28b43,0 0 70px #8d5a2c66;border-radius:2px}
+.portal-landing.blast .portal-core{animation:portalBlast .95s cubic-bezier(.2,.8,.2,1) forwards}
+.portal-landing.blast .portal-copy{animation:copyBlast .9s ease-in forwards}
+@keyframes portalSpin{to{transform:rotateX(62deg) rotateZ(344deg)}}
+@keyframes portalPulse{50%{transform:perspective(700px) rotateX(8deg) scale(1.07);opacity:.65}}
+@keyframes portalBlast{0%{transform:rotateX(62deg) scale(1);opacity:1}100%{transform:rotateX(62deg) scale(5);opacity:0}}
+@keyframes copyBlast{to{opacity:0;transform:scale(1.15);filter:blur(8px)}}
+.globe-stage{min-height:100svh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,#201a20 0,#09070b 55%,#030306 100%);display:none}
+.globe-stage.active{display:block;animation:stageReveal 1.1s ease both}
+@keyframes stageReveal{from{opacity:0;filter:blur(12px)}to{opacity:1;filter:blur(0)}}
+.globe-head{position:absolute;z-index:3;left:6vw;top:16%;max-width:260px}
+.globe-head h2{font-size:clamp(34px,4vw,56px);font-weight:500;line-height:1.05;margin:14px 0}
+.globe-head p{color:#c5bac5;font-size:12px;line-height:1.8}
+#globeCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.globe-foot{position:absolute;z-index:3;bottom:8%;left:6vw;right:6vw;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.globe-hint{font-size:10px;letter-spacing:.12em;color:#bdb2bd}
+.go-store{border-radius:30px;box-shadow:0 0 22px #c58e43aa}
+.globe-product-pop{position:absolute;z-index:4;right:6vw;top:18%;width:min(260px,42vw);padding:14px;border:1px solid #b38a4d;background:#0a080de8;backdrop-filter:blur(12px);display:none}
+.globe-product-pop.show{display:block}
+.globe-product-pop img{width:100%;height:130px;object-fit:cover;background:#211b20}
+.globe-product-pop h3{font-weight:500;margin:10px 0 4px}
+.globe-product-pop p{font-size:11px;color:#c2b7c0}
+.globe-product-pop .mini{margin-top:8px}
+#collection{scroll-margin-top:20px}
+@media(max-width:760px){.portal-core{width:112vw}.globe-head{top:12%;left:6vw;right:6vw;max-width:none;text-align:center}.globe-head h2{font-size:34px}.globe-head p{max-width:330px;margin:auto}.globe-foot{bottom:5%;left:5vw;right:5vw;align-items:flex-end}.globe-hint{max-width:130px;line-height:1.5}.globe-product-pop{top:auto;bottom:17%;right:5vw;width:45vw}.globe-product-pop img{height:85px}}
+
 </style>
 </head>
 <body>
 <header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button><button class="mini" id="openSeller">SELLER</button></div></header>
 <main>
-<section class="hero"><canvas id="stars"></canvas><div class="hero-content"><div class="eyebrow">A new dimension of style</div><h1>Enter the<br><span class="gold">extraordinary.</span></h1><p>Cross the threshold. Discover carefully selected essentials, reimagined for a world without limits.</p><button class="btn" id="enterShop">Enter the shop ↗</button></div></section>
+<section class="portal-landing" id="portalLanding">
+  <canvas id="stars"></canvas><div class="portal-core"></div>
+  <div class="portal-copy"><div class="brand-mark">✧ ORBIT ATELIER ✧</div><div class="eyebrow" style="margin-top:26px">A portal to another dimension</div><h1>BEYOND THE<br><span class="gold">ORDINARY.</span></h1><p>Enter a new universe of style. Explore the ORBIT collection through an immersive fashion experience.</p><button class="btn portal-enter" id="enterShop">ENTER THE ORBIT&nbsp; ↗</button><div class="eyebrow" style="margin-top:24px;font-size:9px">Fashion without boundaries</div></div>
+</section>
+<section class="globe-stage" id="globeStage">
+  <canvas id="globeCanvas"></canvas>
+  <div class="globe-head"><div class="eyebrow">The ORBIT universe</div><h2>EXPLORE OUR<br><span class="gold">FASHION UNIVERSE.</span></h2><p>Rotate the holographic globe. Discover pieces orbiting through our collection, then enter the store to shop the full range.</p></div>
+  <div class="globe-product-pop" id="globeProductPop"><img id="globeProductImage" alt=""><h3 id="globeProductName"></h3><p id="globeProductPrice"></p><button class="mini" id="globeChoose">VIEW PIECE ↗</button></div>
+  <div class="globe-foot"><span class="globe-hint">◉ DRAG TO ROTATE THE GLOBE<br>SELECT A FLOATING PRODUCT TO EXPLORE</span><button class="btn go-store" id="goToStore">GO TO STORE&nbsp; →</button></div>
+</section>
 <section class="section" id="collection"><div class="intro"><div class="eyebrow">The collection</div><h2>Made to <span class="gold">move you.</span></h2><p>Explore the collection. Choose your fit, select your size and add your favourites to your bag.</p></div><div class="filters"><button class="filter active" data-filter="All">ALL</button><button class="filter" data-filter="shirts">SHIRTS</button><button class="filter" data-filter="trousers">TROUSERS</button></div><div class="products" id="products"><p class="muted">Loading collection…</p></div></section>
 <section class="section intro"><div class="eyebrow">Beyond the ordinary</div><h2>Fashion is a <span class="gold">destination.</span></h2><p>One portal. A world of personal style. Welcome to ORBIT ATELIER.</p><button class="btn ghost" id="returnTop">Return to portal ↑</button></section>
 </main>
@@ -51,6 +99,7 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 <div class="notice" id="notice"></div>
 
 <script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js";
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/+esm";
 
 const SUPABASE_URL = "https://ljinttjwpnuhwakocvzq.supabase.co";
@@ -106,6 +155,7 @@ function renderProducts() {
     return '<article class="product"><div class="art">' + art + '</div><div class="info"><h3>' + esc(p.name) + '</h3><p>' + esc(p.category) + ' · ' + esc(p.description || "ORBIT ATELIER collection") + '</p>' + extra + '<div class="stock-note">' + (inStock ? "Available in selected sizes" : "Currently out of stock") + '</div><div class="bottom"><span>' + money(p.price) + '</span><button class="mini" data-add="' + esc(p.id) + '" ' + (!inStock ? "disabled" : "") + '>CHOOSE SIZE +</button></div></div></article>';
   }).join("");
   root.querySelectorAll("[data-add]").forEach(button => button.addEventListener("click", () => chooseProduct(button.dataset.add)));
+  if (globeApp) { globeApp.stop(); globeApp = createHolographicGlobe(); }
 }
 document.querySelectorAll("[data-filter]").forEach(button => button.addEventListener("click", () => {
   filterBy = button.dataset.filter === "All" ? "All" : button.dataset.filter;
@@ -357,14 +407,82 @@ async function loadAdminOrders() {
     toast("Order status updated.");
   }));
 }
+let globeApp = null;
 document.getElementById("enterShop").addEventListener("click", () => {
-  show("portal"); drawTunnel(); portalTimer = setTimeout(skipPortal, 3200);
+  const landing = document.getElementById("portalLanding");
+  landing.classList.add("blast");
+  setTimeout(() => {
+    landing.style.display = "none";
+    document.getElementById("globeStage").classList.add("active");
+    if (!globeApp) globeApp = createHolographicGlobe();
+    else globeApp.resize();
+  }, 760);
 });
 function skipPortal() {
-  clearTimeout(portalTimer); close("portal");
-  document.getElementById("collection").scrollIntoView({ behavior: "smooth" });
+  document.getElementById("portalLanding").style.display = "none";
+  document.getElementById("globeStage").classList.add("active");
+  if (!globeApp) globeApp = createHolographicGlobe();
 }
-document.getElementById("skipPortal").addEventListener("click", skipPortal);
+document.getElementById("goToStore").addEventListener("click", () => {
+  const stage = document.getElementById("globeStage");
+  stage.style.transition = "opacity .7s, transform .7s";
+  stage.style.opacity = "0";
+  stage.style.transform = "scale(1.08)";
+  setTimeout(() => {
+    stage.style.display = "none";
+    document.getElementById("collection").scrollIntoView({behavior:"smooth"});
+  }, 650);
+});
+function createHolographicGlobe() {
+  const host = document.getElementById("globeCanvas");
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, .1, 100);
+  camera.position.set(0,0,9.2);
+  const renderer = new THREE.WebGLRenderer({canvas:host,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  scene.add(new THREE.AmbientLight(0xffffff,1.5));
+  const goldLight = new THREE.PointLight(0xe8b968,3.2,24); goldLight.position.set(3,3,5); scene.add(goldLight);
+  const blueLight = new THREE.PointLight(0x6386c9,1.4,20); blueLight.position.set(-4,-2,3); scene.add(blueLight);
+  const group = new THREE.Group(); scene.add(group);
+  const globe = new THREE.Mesh(new THREE.SphereGeometry(2.05,64,64),new THREE.MeshBasicMaterial({color:0x0b1420,wireframe:true,transparent:true,opacity:.34}));
+  group.add(globe);
+  const inner = new THREE.Mesh(new THREE.SphereGeometry(1.98,48,48),new THREE.MeshBasicMaterial({color:0x8f6b3c,wireframe:true,transparent:true,opacity:.11}));
+  group.add(inner);
+  [2.35,2.55,2.8].forEach((r,i)=>{const ring=new THREE.Mesh(new THREE.TorusGeometry(r,.008,8,180),new THREE.MeshBasicMaterial({color:i===1?0xf0c779:0x9d713c,transparent:true,opacity:.8}));ring.rotation.x=Math.PI/2+(i*.22);ring.rotation.y=i*.5;group.add(ring)});
+  const particles = new THREE.BufferGeometry(), positions=[];
+  for(let i=0;i<900;i++){const v=new THREE.Vector3().randomDirection().multiplyScalar(2.15+Math.random()*1.2);positions.push(v.x,v.y,v.z)}
+  particles.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));
+  group.add(new THREE.Points(particles,new THREE.PointsMaterial({color:0xe4bd78,size:.018,transparent:true,opacity:.8})));
+  const cards=[];
+  const available = products.slice(0,16);
+  const loader = new THREE.TextureLoader();
+  available.forEach((p,i)=>{
+    const phi=Math.acos(-1+2*(i+.5)/Math.max(available.length,1));
+    const theta=Math.sqrt(available.length*Math.PI)*phi;
+    const pos=new THREE.Vector3(2.48*Math.sin(phi)*Math.cos(theta),2.48*Math.cos(phi),2.48*Math.sin(phi)*Math.sin(theta));
+    const cardGroup=new THREE.Group(); cardGroup.position.copy(pos); cardGroup.lookAt(pos.clone().multiplyScalar(2));
+    const frame=new THREE.Mesh(new THREE.PlaneGeometry(.82,1.08),new THREE.MeshBasicMaterial({color:0xc9a15e,wireframe:true,transparent:true,opacity:.8}));
+    cardGroup.add(frame);
+    const image=p.oa_product_images?.[0];
+    if(image){loader.load(imageUrl(image.storage_path),tex=>{tex.colorSpace=THREE.SRGBColorSpace;const mesh=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide}));mesh.position.z=.012;mesh.userData.productId=p.id;cardGroup.add(mesh);cards.push(mesh)});}
+    else {const dot=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0x292027,side:THREE.DoubleSide}));dot.userData.productId=p.id;cardGroup.add(dot);cards.push(dot)}
+    frame.userData.productId=p.id; cards.push(frame); group.add(cardGroup);
+  });
+  const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
+  let down=false, px=0,py=0, moved=false, selectedId=null;
+  host.addEventListener("pointerdown",e=>{down=true;px=e.clientX;py=e.clientY;moved=false;host.setPointerCapture(e.pointerId)});
+  host.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-px,dy=e.clientY-py;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;group.rotation.y+=dx*.006;group.rotation.x+=dy*.004;px=e.clientX;py=e.clientY});
+  host.addEventListener("pointerup",e=>{down=false;if(moved)return;const rect=host.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(cards);if(hits.length){selectedId=hits[0].object.userData.productId;showGlobeProduct(selectedId)}});
+  function showGlobeProduct(id){const p=products.find(x=>x.id===id);if(!p)return;document.getElementById("globeProductName").textContent=p.name;document.getElementById("globeProductPrice").textContent=money(p.price);const img=p.oa_product_images?.[0];const node=document.getElementById("globeProductImage");node.src=img?imageUrl(img.storage_path):"";node.style.display=img?"block":"none";document.getElementById("globeProductPop").classList.add("show");}
+  document.getElementById("globeChoose").onclick=()=>{if(selectedId){chooseProduct(selectedId);document.getElementById("globeProductPop").classList.remove("show")}};
+  let running=true;
+  function animate(){if(!running)return;requestAnimationFrame(animate);if(!down){group.rotation.y+=.0018;group.rotation.x=Math.sin(Date.now()*.00025)*.035}renderer.render(scene,camera)}
+  function resize(){const w=innerWidth,h=innerHeight;camera.aspect=w/h;camera.position.x=w<760?0:1.2;camera.position.z=w<760?10.8:9.2;camera.updateProjectionMatrix();renderer.setSize(w,h)}
+  addEventListener("resize",resize);animate();
+  return {resize,stop(){running=false;renderer.dispose()}};
+}
 document.getElementById("returnTop").addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
 
 const canvas = document.getElementById("stars"), ctx = canvas.getContext("2d");
