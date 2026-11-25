@@ -61,10 +61,23 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 #collection{scroll-margin-top:20px}
 @media(max-width:760px){.portal-core{width:112vw}.globe-head{top:12%;left:6vw;right:6vw;max-width:none;text-align:center}.globe-head h2{font-size:34px}.globe-head p{max-width:330px;margin:auto}.globe-foot{bottom:5%;left:5vw;right:5vw;align-items:flex-end}.globe-hint{max-width:130px;line-height:1.5}.globe-product-pop{top:auto;bottom:17%;right:5vw;width:45vw}.globe-product-pop img{height:85px}}
 
+
+/* The globe is the storefront; the separate catalogue layout is intentionally hidden. */
+#collection,.section.intro{display:none!important}
+.globe-foot{align-items:end}
+.globe-shop-controls{display:flex;flex-direction:column;gap:12px}
+.globe-filters{display:flex;gap:8px;flex-wrap:wrap}
+.globe-filters .active{border-color:#d9b66d;color:#e7c27d;background:#d7b87922}
+#globeBag{white-space:nowrap}
+body.admin-mode .nav,body.admin-mode main,body.admin-mode footer,body.admin-mode #toast{display:none!important}
+body.admin-mode #sellerModal{display:grid!important;position:relative;inset:auto;min-height:100vh;padding:24px;background:radial-gradient(ellipse at center,#211a20,#050407)}
+body.admin-mode #sellerModal .dialog{max-height:none;width:min(1000px,100%);margin:auto}
+@media(max-width:760px){.globe-foot{align-items:end}.globe-shop-controls{max-width:68%}.globe-filters{gap:5px}.globe-filters .mini{padding:8px 10px}}
+
 </style>
 </head>
 <body>
-<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button><button class="mini" id="openSeller">SELLER</button></div></header>
+<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button><a class="mini" href="./admin.html" style="text-decoration:none">ADMIN</a></div></header>
 <main>
 <section class="portal-landing" id="portalLanding">
   <canvas id="stars"></canvas><div class="portal-core"></div>
@@ -72,9 +85,9 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 </section>
 <section class="globe-stage" id="globeStage">
   <canvas id="globeCanvas"></canvas>
-  <div class="globe-head"><div class="eyebrow">The ORBIT universe</div><h2>EXPLORE OUR<br><span class="gold">FASHION UNIVERSE.</span></h2><p>Rotate the holographic globe. Discover pieces orbiting through our collection, then enter the store to shop the full range.</p></div>
+  <div class="globe-head"><div class="eyebrow">The ORBIT universe</div><h2>EXPLORE OUR<br><span class="gold">FASHION UNIVERSE.</span></h2><p>Welcome to the ORBIT store. Rotate the holographic globe, select a piece to view its details, choose your size and add it to your bag.</p></div>
   <div class="globe-product-pop" id="globeProductPop"><img id="globeProductImage" alt=""><h3 id="globeProductName"></h3><p id="globeProductPrice"></p><button class="mini" id="globeChoose">VIEW PIECE ↗</button></div>
-  <div class="globe-foot"><span class="globe-hint">◉ DRAG TO ROTATE THE GLOBE<br>SELECT A FLOATING PRODUCT TO EXPLORE</span><button class="btn go-store" id="goToStore">GO TO STORE&nbsp; →</button></div>
+  <div class="globe-foot"><div class="globe-shop-controls"><span class="globe-hint">◉ DRAG TO ROTATE · SELECT A PRODUCT TO SHOP</span><div class="globe-filters"><button class="mini active" data-globe-filter="All">ALL</button><button class="mini" data-globe-filter="shirts">SHIRTS</button><button class="mini" data-globe-filter="trousers">TROUSERS</button></div></div><button class="btn go-store" id="globeBag">VIEW BAG&nbsp; <span id="globeBagCount">0</span></button></div>
 </section>
 <section class="section" id="collection"><div class="intro"><div class="eyebrow">The collection</div><h2>Made to <span class="gold">move you.</span></h2><p>Explore the collection. Choose your fit, select your size and add your favourites to your bag.</p></div><div class="filters"><button class="filter active" data-filter="All">ALL</button><button class="filter" data-filter="shirts">SHIRTS</button><button class="filter" data-filter="trousers">TROUSERS</button></div><div class="products" id="products"><p class="muted">Loading collection…</p></div></section>
 <section class="section intro"><div class="eyebrow">Beyond the ordinary</div><h2>Fashion is a <span class="gold">destination.</span></h2><p>One portal. A world of personal style. Welcome to ORBIT ATELIER.</p><button class="btn ghost" id="returnTop">Return to portal ↑</button></section>
@@ -196,7 +209,9 @@ document.getElementById("addToBag").addEventListener("click", () => {
   toast("Added to your bag.");
 });
 function updateCartCount() {
-  document.getElementById("count").textContent = cart.reduce((n, x) => n + x.quantity, 0);
+  const total = cart.reduce((n, x) => n + x.quantity, 0);
+  document.getElementById("count").textContent = total;
+  const globeCount = document.getElementById("globeBagCount"); if (globeCount) globeCount.textContent = total;
 }
 function openCart() {
   const root = document.getElementById("cartItems");
@@ -246,8 +261,6 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
   }
 });
 
-function sellerOpen() { show("sellerModal"); }
-document.getElementById("openSeller").addEventListener("click", sellerOpen);
 document.getElementById("sendLogin").addEventListener("click", async () => {
   const email = document.getElementById("adminEmail").value.trim();
   if (!email) return toast("Enter the administrator email.");
@@ -423,16 +436,13 @@ function skipPortal() {
   document.getElementById("globeStage").classList.add("active");
   if (!globeApp) globeApp = createHolographicGlobe();
 }
-document.getElementById("goToStore").addEventListener("click", () => {
-  const stage = document.getElementById("globeStage");
-  stage.style.transition = "opacity .7s, transform .7s";
-  stage.style.opacity = "0";
-  stage.style.transform = "scale(1.08)";
-  setTimeout(() => {
-    stage.style.display = "none";
-    document.getElementById("collection").scrollIntoView({behavior:"smooth"});
-  }, 650);
-});
+document.getElementById("globeBag").addEventListener("click", openCart);
+document.getElementById("openCart").addEventListener("click", () => { updateCartCount(); openCart(); });
+document.querySelectorAll("[data-globe-filter]").forEach(button => button.addEventListener("click", () => {
+  filterBy = button.dataset.globeFilter;
+  document.querySelectorAll("[data-globe-filter]").forEach(b => b.classList.toggle("active", b === button));
+  if (globeApp) { globeApp.stop(); globeApp = createHolographicGlobe(); }
+}));
 function createHolographicGlobe() {
   const host = document.getElementById("globeCanvas");
   const scene = new THREE.Scene();
@@ -456,7 +466,7 @@ function createHolographicGlobe() {
   particles.setAttribute("position",new THREE.Float32BufferAttribute(positions,3));
   group.add(new THREE.Points(particles,new THREE.PointsMaterial({color:0xe4bd78,size:.018,transparent:true,opacity:.8})));
   const cards=[];
-  const available = products.slice(0,16);
+  const available = products.filter(p => filterBy === "All" || p.category === filterBy).slice(0,32);
   const loader = new THREE.TextureLoader();
   available.forEach((p,i)=>{
     const phi=Math.acos(-1+2*(i+.5)/Math.max(available.length,1));
@@ -477,6 +487,7 @@ function createHolographicGlobe() {
   host.addEventListener("pointerup",e=>{down=false;if(moved)return;const rect=host.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(cards);if(hits.length){selectedId=hits[0].object.userData.productId;showGlobeProduct(selectedId)}});
   function showGlobeProduct(id){const p=products.find(x=>x.id===id);if(!p)return;document.getElementById("globeProductName").textContent=p.name;document.getElementById("globeProductPrice").textContent=money(p.price);const img=p.oa_product_images?.[0];const node=document.getElementById("globeProductImage");node.src=img?imageUrl(img.storage_path):"";node.style.display=img?"block":"none";document.getElementById("globeProductPop").classList.add("show");}
   document.getElementById("globeChoose").onclick=()=>{if(selectedId){chooseProduct(selectedId);document.getElementById("globeProductPop").classList.remove("show")}};
+  document.getElementById("globeBagCount").textContent = cart.reduce((n,x)=>n+x.quantity,0);
   let running=true;
   function animate(){if(!running)return;requestAnimationFrame(animate);if(!down){group.rotation.y+=.0018;group.rotation.x=Math.sin(Date.now()*.00025)*.035}renderer.render(scene,camera)}
   function resize(){const w=innerWidth,h=innerHeight;camera.aspect=w/h;camera.position.x=w<760?0:1.2;camera.position.z=w<760?10.8:9.2;camera.updateProjectionMatrix();renderer.setSize(w,h)}
@@ -512,6 +523,7 @@ function drawTunnel() {
   frame();
 }
 
+if (new URLSearchParams(location.search).get("admin") === "1") { document.body.classList.add("admin-mode"); show("sellerModal"); }
 await loadProducts();
 const { data: initialSession } = await supabase.auth.getSession();
 if (initialSession?.session) await verifyAdmin();
