@@ -483,7 +483,7 @@ function createHolographicGlobe() {
   addEventListener("resize",resize);animate();
   return {resize,stop(){running=false;renderer.dispose()}};
 }
-document.getElementById("returnTop").addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+document.getElementById("returnTop").addEventListener("click", () => { const landing=document.getElementById("portalLanding"); landing.style.display="grid"; landing.classList.remove("blast"); document.getElementById("globeStage").classList.remove("active"); document.getElementById("globeStage").style.display="none"; scrollTo({top:0,behavior:"smooth"}); });
 
 const canvas = document.getElementById("stars"), ctx = canvas.getContext("2d");
 let stars = [];
