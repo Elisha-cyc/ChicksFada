@@ -25,15 +25,15 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 
 /* ORBIT: first-person wormhole journey */
 .portal-landing{min-height:100svh;position:relative;overflow:hidden;display:grid;place-items:center;text-align:center;background:#02030a;isolation:isolate}
-.portal-landing:before{content:"";position:absolute;inset:-20%;z-index:0;background:radial-gradient(ellipse at center,#1c1835 0,#080916 28%,#02030a 62%);pointer-events:none}
+.portal-landing:before{content:"";position:absolute;inset:-20%;z-index:0;background:radial-gradient(ellipse at center,#3a2a12 0,#171008 30%,#02030a 68%);pointer-events:none}
 .portal-landing:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 10%,#02030a22 48%,#02030a 100%);box-shadow:inset 0 0 130px #000}
 #stars{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .portal-core{display:none}
 .portal-copy{position:relative;z-index:2;padding:110px 22px 60px;max-width:850px;text-shadow:0 2px 24px #000}
 .brand-mark{font-family:"Playfair Display",serif;color:#f0d49c;letter-spacing:.28em;font-size:12px}
-.portal-copy h1{font-size:clamp(46px,9vw,104px);text-shadow:0 0 35px #a58aff66,0 4px 24px #000}
+.portal-copy h1{font-size:clamp(46px,9vw,104px);text-shadow:0 0 35px #d7b87966,0 4px 24px #000}
 .portal-copy p{max-width:520px;margin:0 auto 30px;color:#e0d9ed}
-.portal-enter{box-shadow:0 0 28px #a68cff88,0 0 90px #7654d955;border-color:#d5c5ff;background:linear-gradient(135deg,#eee5ff,#a58bdf);color:#100d1c}
+.portal-enter{box-shadow:0 0 28px #d7b87988,0 0 90px #9b6d2d55;border-color:#f0dcae;background:linear-gradient(135deg,#f4dfad,#b88a42);color:#17120d}
 .portal-landing.blast .portal-copy{animation:copyBlast .7s ease-in forwards}
 .portal-landing.blast #stars{animation:warpFlash 1.35s cubic-bezier(.15,.7,.1,1) forwards}
 @keyframes copyBlast{to{opacity:0;transform:scale(1.3);filter:blur(14px)}}
@@ -540,10 +540,10 @@ function createHolographicGlobe() {
       const demoGroup = new THREE.Group();
       demoGroup.position.set(0, 0, 2.52);
       demoGroup.lookAt(0, 0, 5);
-      const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 1.34), new THREE.MeshBasicMaterial({color:0x73ddff,transparent:true,opacity:.18,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
-      glow.position.z = .01; demoGroup.add(glow);
-      const preview = new THREE.Mesh(new THREE.PlaneGeometry(1.32,1.72),new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true,depthWrite:false}));
-      preview.position.z = .035; demoGroup.add(preview);
+      const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.42, 1.84), new THREE.MeshBasicMaterial({color:0xe3b75f,transparent:true,opacity:.24,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false}));
+      glow.position.z = .01; glow.renderOrder = 19; demoGroup.add(glow);
+      const preview = new THREE.Mesh(new THREE.PlaneGeometry(1.32,1.72),new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true,depthWrite:false,depthTest:false}));
+      preview.position.z = .055; preview.renderOrder = 20; demoGroup.add(preview);
       const scan = new THREE.Mesh(new THREE.PlaneGeometry(1.32,1.72),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.08,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));
       scan.position.z = .05; demoGroup.add(scan);
       group.add(demoGroup);
@@ -578,14 +578,14 @@ function animateStars(){
  tunnelSpeed+=( (travelling?.045:.0028)-tunnelSpeed)*.035;tunnelTime+=tunnelSpeed;
  ctx.fillStyle="#02030a";ctx.fillRect(0,0,w,h);
  const glow=ctx.createRadialGradient(cx,cy,2,cx,cy,Math.max(w,h)*.72);
- glow.addColorStop(0,"#16122b");glow.addColorStop(.38,"#080916");glow.addColorStop(1,"#02030a");
+ glow.addColorStop(0,"#33230f");glow.addColorStop(.38,"#110d08");glow.addColorStop(1,"#02030a");
  ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
  for(let i=0;i<34;i++){
   const z=(i/34+tunnelTime*2.2)%1,depth=.035+z*z*1.75;
   const rx=depth*Math.min(w,h)*.42,ry=depth*Math.min(w,h)*.55,rotation=tunnelTime*1.8+z*2.6;
   ctx.save();ctx.translate(cx,cy);ctx.rotate(rotation);ctx.beginPath();ctx.ellipse(0,0,rx,ry,0,0,Math.PI*2);
-  const alpha=.12+z*.48;ctx.strokeStyle=i%3===0?"rgba(186,157,255,"+alpha+")":"rgba(105,190,255,"+(alpha*.72)+")";
-  ctx.lineWidth=.6+z*3.2;ctx.shadowBlur=8+z*24;ctx.shadowColor=i%3===0?"#a98aff":"#57c9ff";ctx.stroke();ctx.restore();
+  const alpha=.12+z*.48;ctx.strokeStyle="rgba(222,178,96,"+(alpha*(i%3===0?1:.78))+")";
+  ctx.lineWidth=.6+z*3.2;ctx.shadowBlur=8+z*24;ctx.shadowColor="#d7a94f";ctx.stroke();ctx.restore();
  }
  for(const star of tunnelStars){
   star.z+=tunnelSpeed*(travelling?7:1.2);
@@ -595,7 +595,7 @@ function animateStars(){
   ctx.beginPath();ctx.moveTo(x-Math.cos(star.a)*tail,y-Math.sin(star.a)*tail);ctx.lineTo(x,y);
   ctx.strokeStyle="rgba(220,225,255,"+(.2+star.z*.7)+")";ctx.lineWidth=star.size*(.5+star.z*1.8);ctx.stroke();
  }
- ctx.beginPath();ctx.arc(cx,cy,Math.max(3,Math.min(w,h)*.012),0,Math.PI*2);ctx.fillStyle="#d6c4ff";ctx.shadowBlur=45;ctx.shadowColor="#9475ff";ctx.fill();ctx.shadowBlur=0;
+ ctx.beginPath();ctx.arc(cx,cy,Math.max(3,Math.min(w,h)*.012),0,Math.PI*2);ctx.fillStyle="#f0d39a";ctx.shadowBlur=45;ctx.shadowColor="#d7a94f";ctx.fill();ctx.shadowBlur=0;
  requestAnimationFrame(animateStars);
 }
 addEventListener("resize",resizeStars);resizeStars();animateStars();
