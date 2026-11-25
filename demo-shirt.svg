@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 920">
+<defs>
+ <radialGradient id="bg"><stop stop-color="#24384a"/><stop offset="1" stop-color="#080b16"/></radialGradient>
+ <linearGradient id="fabric" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4e7cb"/><stop offset=".5" stop-color="#b5d8e8"/><stop offset="1" stop-color="#6e8eaa"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="18" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="720" height="920" fill="url(#bg)"/>
+<g opacity=".35" fill="none" stroke="#8ee8ff"><circle cx="360" cy="460" r="310"/><circle cx="360" cy="460" r="270"/><path d="M50 460h620M360 120v680"/></g>
+<ellipse cx="360" cy="790" rx="205" ry="28" fill="#63dfff" opacity=".18" filter="url(#glow)"/>
+<path d="M250 170 320 135 360 170 400 135 470 170 575 270 500 355 455 310 470 730 250 730 265 310 220 355 145 270Z" fill="url(#fabric)" stroke="#b8f0ff" stroke-width="8" filter="url(#glow)"/>
+<path d="M320 135 360 210 400 135M360 210v520" fill="none" stroke="#536b7e" stroke-width="7"/>
+<path d="M260 375 460 375M260 410 460 410" stroke="#f8ffff" stroke-opacity=".42" stroke-width="4"/>
+<circle cx="375" cy="265" r="5" fill="#24384a"/><circle cx="375" cy="315" r="5" fill="#24384a"/><circle cx="375" cy="365" r="5" fill="#24384a"/>
+<text x="360" y="835" fill="#d7f4ff" font-family="Arial,sans-serif" font-size="22" letter-spacing="8" text-anchor="middle">ORBIT · DEMO PIECE</text>
+</svg>
