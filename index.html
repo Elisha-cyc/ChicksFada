@@ -1,39 +1,402 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#08070a"><title>ORBIT ATELIER — Enter the Extraordinary</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08070a">
+<meta name="description" content="ORBIT ATELIER — fashion beyond boundaries. Discover shirts and trousers in a new dimension of style.">
+<title>ORBIT ATELIER — Enter the Extraordinary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#08070a;--gold:#d7b879;--pale:#f0dcae;--muted:#aaa1a9;--line:#302832}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f2e9;font-family:"DM Sans",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.serif,h1,h2,h3{font-family:"Playfair Display",serif}.gold{color:var(--pale)}.nav{position:absolute;z-index:3;top:0;width:100%;padding:24px 6vw;display:flex;justify-content:space-between;align-items:center;letter-spacing:.2em;font-size:12px}.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#392b20 0,#1b151d 38%,#08070a 76%)}#stars{position:absolute;inset:0;width:100%;height:100%}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#08070a55,transparent 45%,#08070a)}.hero-content{z-index:1;max-width:780px;padding:100px 22px 60px}.eyebrow{font-size:10px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase}h1{font-size:clamp(50px,9vw,104px);line-height:.98;font-weight:500;margin:22px 0}.hero p,.intro p{color:#c9c0c7;line-height:1.8;font-size:14px;max-width:500px;margin:0 auto 28px}.btn{border:1px solid var(--gold);background:linear-gradient(135deg,#e6cc97,#a98245);color:#17120d;padding:14px 23px;font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase}.ghost{background:transparent;color:var(--pale)}.section{padding:85px 6vw}.intro{text-align:center;max-width:700px;margin:auto}.intro h2{font-size:clamp(34px,5vw,56px);font-weight:500;margin:14px 0}.filters{display:flex;gap:8px;justify-content:center;margin:28px}.filter,.mini{border:1px solid #806c4b;background:transparent;color:var(--pale);padding:9px 14px;font-size:10px;letter-spacing:.1em}.filter.active{background:#d7b87922}.products{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.product{border:1px solid var(--line);background:#110e13}.art{height:270px;display:grid;place-items:center;background:radial-gradient(ellipse,#42352d,#17131a 70%)}.art svg{height:80%;max-width:80%;filter:drop-shadow(0 15px 15px #0009)}.info{padding:18px}.info h3{font-size:21px;font-weight:500;margin:0 0 7px}.info p{font-size:11px;color:var(--muted)}.bottom{display:flex;justify-content:space-between;align-items:center;color:var(--pale)}footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-content:space-between;flex-wrap:wrap;color:#918791;font-size:10px;letter-spacing:.12em}.overlay{display:none;position:fixed;inset:0;z-index:10;background:#050407;place-items:center;text-align:center}.overlay.show{display:grid}#tunnel{position:absolute;width:100%;height:100%}.travel{z-index:1}.travel h2{font-size:clamp(38px,7vw,75px);font-weight:500}.modal{display:none;position:fixed;inset:0;z-index:20;background:#000c;place-items:center;padding:16px}.modal.show{display:grid}.dialog{width:min(500px,100%);max-height:90vh;overflow:auto;background:#17121a;border:1px solid #806c4b;padding:24px}.dialog h2{font-size:30px;font-weight:500;margin:0 0 8px}.muted{font-size:12px;color:var(--muted);line-height:1.6}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--pale)}.field input,.field select,.field textarea{background:#0b090d;border:1px solid #403642;color:white;padding:11px;width:100%}.field textarea{min-height:70px}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}.cartline{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.notice{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--pale);color:#17120d;padding:12px 18px;display:none;font-size:12px;z-index:30}
-@media(max-width:700px){.products{grid-template-columns:1fr}.art{height:280px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.nav{padding:20px 5vw}.section{padding:65px 5vw}}
-</style></head>
+:root{--bg:#08070a;--gold:#d7b879;--pale:#f0dcae;--muted:#aaa1a9;--line:#302832;--panel:#17121a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f2e9;font-family:"DM Sans",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.serif,h1,h2,h3{font-family:"Playfair Display",serif}.gold{color:var(--pale)}
+.nav{position:absolute;z-index:3;top:0;width:100%;padding:24px 6vw;display:flex;justify-content:space-between;align-items:center;gap:12px;letter-spacing:.16em;font-size:12px}.nav-actions{display:flex;align-items:center;gap:9px}
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#392b20 0,#1b151d 38%,#08070a 76%)}#stars{position:absolute;inset:0;width:100%;height:100%}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#08070a55,transparent 45%,#08070a)}
+.hero-content{z-index:1;max-width:780px;padding:100px 22px 60px}.eyebrow{font-size:10px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase}h1{font-size:clamp(50px,9vw,104px);line-height:.98;font-weight:500;margin:22px 0}.hero p,.intro p{color:#c9c0c7;line-height:1.8;font-size:14px;max-width:500px;margin:0 auto 28px}
+.btn{border:1px solid var(--gold);background:linear-gradient(135deg,#e6cc97,#a98245);color:#17120d;padding:14px 23px;font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase}.btn:disabled{opacity:.5;cursor:not-allowed}.ghost{background:transparent;color:var(--pale)}.mini{border:1px solid #806c4b;background:transparent;color:var(--pale);padding:9px 14px;font-size:10px;letter-spacing:.1em}
+.section{padding:85px 6vw}.intro{text-align:center;max-width:700px;margin:auto}.intro h2{font-size:clamp(34px,5vw,56px);font-weight:500;margin:14px 0}.filters{display:flex;gap:8px;justify-content:center;margin:28px;flex-wrap:wrap}.filter{border:1px solid #806c4b;background:transparent;color:var(--pale);padding:9px 14px;font-size:10px;letter-spacing:.1em}.filter.active{background:#d7b87922}
+.products{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.product{border:1px solid var(--line);background:#110e13;min-width:0}.art{height:270px;display:grid;place-items:center;background:radial-gradient(ellipse,#42352d,#17131a 70%);overflow:hidden}.art img{width:100%;height:100%;object-fit:cover}.placeholder{color:#cbb17e;font-family:"Playfair Display",serif;font-size:36px;letter-spacing:.1em}.info{padding:18px}.info h3{font-size:21px;font-weight:500;margin:0 0 7px}.info p{font-size:11px;color:var(--muted);line-height:1.6}.bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--pale)}.stock-note{font-size:10px;color:#a99c8c;margin:10px 0}
+footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;color:#918791;font-size:10px;letter-spacing:.12em}
+.overlay{display:none;position:fixed;inset:0;z-index:10;background:#050407;place-items:center;text-align:center}.overlay.show{display:grid}#tunnel{position:absolute;width:100%;height:100%}.travel{z-index:1}.travel h2{font-size:clamp(38px,7vw,75px);font-weight:500}
+.modal{display:none;position:fixed;inset:0;z-index:20;background:#000d;place-items:center;padding:16px}.modal.show{display:grid}.dialog{width:min(650px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid #806c4b;padding:24px}.dialog.wide{width:min(1000px,100%)}.dialog h2{font-size:30px;font-weight:500;margin:0 0 8px}.muted{font-size:12px;color:var(--muted);line-height:1.6}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:10px;color:var(--pale);letter-spacing:.08em}.field input,.field select,.field textarea{background:#0b090d;border:1px solid #403642;color:white;padding:11px;width:100%;border-radius:0}.field textarea{min-height:70px;resize:vertical}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}.cartline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.notice{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--pale);color:#17120d;padding:12px 18px;display:none;font-size:12px;z-index:30;max-width:90vw;text-align:center}
+.admin-tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}.admin-tabs button.active{background:#d7b87922}.admin-section{display:none}.admin-section.active{display:block}.admin-card{border:1px solid var(--line);padding:14px;margin:12px 0;background:#100d12}.admin-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.size-stock{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.size-stock label{font-size:10px;color:var(--muted)}.size-stock input{width:65px;display:block;margin-top:5px}.order-status{background:#0b090d;border:1px solid #806c4b;color:var(--pale);padding:8px}.thumbs{display:flex;gap:7px;flex-wrap:wrap}.thumbs img{width:58px;height:58px;object-fit:cover;border:1px solid var(--line)}
+@media(max-width:760px){.products{grid-template-columns:1fr}.art{height:300px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.nav{padding:18px 5vw}.nav>span{display:none}.section{padding:65px 5vw}.dialog{padding:18px}.bottom{align-items:flex-start}.nav-actions{gap:6px}}
+</style>
+</head>
 <body>
-<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><button class="mini" onclick="openCart()">BAG <span id="count">0</span></button></header>
-<main><section class="hero"><canvas id="stars"></canvas><div class="hero-content"><div class="eyebrow">A new dimension of style</div><h1>Enter the<br><span class="gold">extraordinary.</span></h1><p>Cross the threshold. Discover carefully selected essentials, reimagined for a world without limits.</p><button class="btn" onclick="enterPortal()">Enter the shop ↗</button></div></section>
-<section class="section" id="collection"><div class="intro"><div class="eyebrow">The collection</div><h2>Made to <span class="gold">move you.</span></h2><p>Explore the first drop. Choose your fit, select your size and add your favourites to your bag.</p></div><div class="filters"><button class="filter active" onclick="filter('All',this)">ALL</button><button class="filter" onclick="filter('Shirts',this)">SHIRTS</button><button class="filter" onclick="filter('Trousers',this)">TROUSERS</button></div><div class="products" id="products"></div></section>
-<section class="section intro"><div class="eyebrow">Beyond the ordinary</div><h2>Fashion is a <span class="gold">destination.</span></h2><p>One portal. A world of personal style. Welcome to ORBIT ATELIER.</p><button class="btn ghost" onclick="scrollTo({top:0,behavior:'smooth'})">Return to portal ↑</button></section></main>
-<footer><span>© 2026 ORBIT ATELIER</span><span>DEMO STOREFRONT</span><button class="mini" onclick="seller()">SELLER PORTAL</button></footer>
-<div class="overlay" id="portal"><canvas id="tunnel"></canvas><div class="travel"><div class="eyebrow">Portal activated</div><h2>Beyond <span class="gold">the ordinary.</span></h2><p class="eyebrow">Travelling to the fashion dimension</p><button class="mini" onclick="skipPortal()">SKIP INTRO</button></div></div>
-<div class="modal" id="productModal"><div class="dialog"><h2 id="pname">Product</h2><p class="muted" id="pdesc"></p><div class="fields"><div class="field"><label>SIZE</label><select id="size"><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div><div class="field"><label>QUANTITY</label><input id="qty" type="number" min="1" max="20" value="1"></div></div><div class="actions"><button class="mini" onclick="closeModal('productModal')">CANCEL</button><button class="btn" onclick="add()">ADD TO BAG</button></div></div></div>
-<div class="modal" id="cartModal"><div class="dialog"><h2>Your bag</h2><div id="cartItems"></div><div class="cartline"><b>Total</b><b class="gold" id="total">GH₵0.00</b></div><div class="actions"><button class="mini" onclick="closeModal('cartModal')">CONTINUE</button><button class="btn" onclick="checkout()">CHECK OUT</button></div></div></div>
-<div class="modal" id="checkoutModal"><div class="dialog"><h2>Delivery details</h2><p class="muted">Demo checkout only. No payment is collected and your details are not sent to a seller.</p><div class="fields"><div class="field"><label>FULL NAME</label><input id="buyer" autocomplete="name"></div><div class="field"><label>PHONE</label><input id="phone" type="tel" autocomplete="tel"></div><div class="field full"><label>DELIVERY LOCATION</label><textarea id="address" autocomplete="street-address"></textarea></div></div><div class="actions"><button class="mini" onclick="closeModal('checkoutModal')">BACK</button><button class="btn" onclick="placeOrder()">SUBMIT DEMO ORDER</button></div></div></div><div class="notice" id="notice"></div>
-<script>
-const items=[{id:1,name:"The Signature Shirt",cat:"Shirts",price:120,kind:"shirt",tone:"#d5c6ad"},{id:2,name:"After Hours Tee",cat:"Shirts",price:95,kind:"shirt",tone:"#777078"},{id:3,name:"The Tailored Trouser",cat:"Trousers",price:180,kind:"trouser",tone:"#9a8063"}];let cart=[],selected=null,filterBy="All",timer;
-const money=n=>"GH₵"+n.toFixed(2);
-function art(p){return p.kind==="trouser"?'<svg viewBox="0 0 240 300"><path d="M63 28Q120 38 177 28L188 95 169 270 125 270 119 120 111 270 68 270 51 95Z" fill="'+p.tone+'" stroke="#ead9b6"/><path d="M119 43V115" stroke="#f1dfbd"/></svg>':'<svg viewBox="0 0 260 280"><path d="M80 35 105 20Q130 38 155 20L180 35 225 76 195 112 176 95 180 260 80 260 84 95 65 112 35 76Z" fill="'+p.tone+'" stroke="#ead9b6"/><path d="M105 20Q130 66 155 20M130 47V250" fill="none" stroke="#f1dfbd"/></svg>'}
-function render(){let list=items.filter(p=>filterBy==="All"||p.cat===filterBy);document.getElementById("products").innerHTML=list.map(p=>'<article class="product"><div class="art">'+art(p)+'</div><div class="info"><h3>'+p.name+'</h3><p>'+p.cat+' · Sizes S–XXL</p><div class="bottom"><span>'+money(p.price)+'</span><button class="mini" onclick="choose('+p.id+')">QUICK ADD +</button></div></div></article>').join("")}
-function filter(f,el){filterBy=f;document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));el.classList.add("active");render()}
-function choose(id){selected=items.find(p=>p.id===id);document.getElementById("pname").textContent=selected.name;document.getElementById("pdesc").textContent="Sample product. Replace with your actual product details. Price: "+money(selected.price);show("productModal")}
-function add(){let qty=Math.max(1,Math.min(20,+document.getElementById("qty").value||1)),size=document.getElementById("size").value,line=cart.find(x=>x.id===selected.id&&x.size===size);if(line)line.qty+=qty;else cart.push({...selected,size,qty});document.getElementById("count").textContent=cart.reduce((a,x)=>a+x.qty,0);closeModal("productModal");toast("Added to your bag.")}
-function openCart(){document.getElementById("cartItems").innerHTML=cart.length?cart.map((x,i)=>'<div class="cartline"><span>'+x.name+' · '+x.size+' × '+x.qty+'</span><span>'+money(x.price*x.qty)+' <button class="mini" onclick="removeItem('+i+')">×</button></span></div>').join(""):'<p class="muted">Your bag is empty.</p>';document.getElementById("total").textContent=money(cart.reduce((a,x)=>a+x.price*x.qty,0));show("cartModal")}
-function removeItem(i){cart.splice(i,1);document.getElementById("count").textContent=cart.reduce((a,x)=>a+x.qty,0);openCart()}
-function checkout(){if(!cart.length){toast("Your bag is empty.");return}closeModal("cartModal");show("checkoutModal")}
-function placeOrder(){let name=document.getElementById("buyer").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim();if(!name||!phone||!address){toast("Please complete all delivery details.");return}let orders=JSON.parse(localStorage.getItem("orbitOrders")||"[]");orders.unshift({ref:"OA-"+Date.now(),name,phone,address,items:cart,total:cart.reduce((a,x)=>a+x.price*x.qty,0),date:new Date().toLocaleString()});localStorage.setItem("orbitOrders",JSON.stringify(orders));cart=[];document.getElementById("count").textContent="0";closeModal("checkoutModal");toast("Demo order saved on this device only.")}
-function seller(){let orders=JSON.parse(localStorage.getItem("orbitOrders")||"[]");alert(orders.length?orders.map(o=>o.ref+" — "+o.name+" — "+o.phone+" — "+o.address).join("\n"):"No demo orders on this device.")}
-function show(id){document.getElementById(id).classList.add("show")}function closeModal(id){document.getElementById(id).classList.remove("show")}function toast(t){let n=document.getElementById("notice");n.textContent=t;n.style.display="block";setTimeout(()=>n.style.display="none",2800)}
-function enterPortal(){show("portal");timer=setTimeout(skipPortal,3600);drawTunnel()}function skipPortal(){clearTimeout(timer);closeModal("portal");document.getElementById("collection").scrollIntoView({behavior:"smooth"})}
-render();
-const c=document.getElementById("stars"),ctx=c.getContext("2d");let stars=[];function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);stars=Array.from({length:130},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.5+.3}))}function animate(){ctx.clearRect(0,0,innerWidth,innerHeight);stars.forEach(s=>{s.y+=.15;if(s.y>innerHeight)s.y=0;ctx.fillStyle="rgba(235,211,168,.6)";ctx.fillRect(s.x,s.y,s.r,s.r)});let x=innerWidth/2,y=innerHeight/2;for(let i=0;i<9;i++){ctx.beginPath();ctx.ellipse(x,y,90+i*13,120+i*15,0,0,Math.PI*2);ctx.strokeStyle="rgba(211,174,111,"+(.18-i*.014)+")";ctx.stroke()}requestAnimationFrame(animate)}addEventListener("resize",resize);resize();animate();
-function drawTunnel(){let cv=document.getElementById("tunnel"),g=cv.getContext("2d"),w=cv.width=innerWidth*devicePixelRatio,h=cv.height=innerHeight*devicePixelRatio,t=0;function frame(){if(!document.getElementById("portal").classList.contains("show"))return;t+=.02;g.fillStyle="#050407";g.fillRect(0,0,w,h);for(let i=0;i<80;i++){let z=(i/80+t*.14)%1,r=(1-z)*Math.min(w,h)*.8+4;g.beginPath();g.ellipse(w/2,h/2,r*.7,r,Math.sin(t+i)*.05,0,Math.PI*2);g.strokeStyle="rgba(218,184,121,"+(z*.5)+")";g.stroke()}requestAnimationFrame(frame)}frame()}
-</script></body></html>
+<header class="nav"><b>ORBIT <span class="gold">ATELIER</span></b><span>FASHION BEYOND BOUNDARIES</span><div class="nav-actions"><button class="mini" id="openCart">BAG <span id="count">0</span></button><button class="mini" id="openSeller">SELLER</button></div></header>
+<main>
+<section class="hero"><canvas id="stars"></canvas><div class="hero-content"><div class="eyebrow">A new dimension of style</div><h1>Enter the<br><span class="gold">extraordinary.</span></h1><p>Cross the threshold. Discover carefully selected essentials, reimagined for a world without limits.</p><button class="btn" id="enterShop">Enter the shop ↗</button></div></section>
+<section class="section" id="collection"><div class="intro"><div class="eyebrow">The collection</div><h2>Made to <span class="gold">move you.</span></h2><p>Explore the collection. Choose your fit, select your size and add your favourites to your bag.</p></div><div class="filters"><button class="filter active" data-filter="All">ALL</button><button class="filter" data-filter="shirts">SHIRTS</button><button class="filter" data-filter="trousers">TROUSERS</button></div><div class="products" id="products"><p class="muted">Loading collection…</p></div></section>
+<section class="section intro"><div class="eyebrow">Beyond the ordinary</div><h2>Fashion is a <span class="gold">destination.</span></h2><p>One portal. A world of personal style. Welcome to ORBIT ATELIER.</p><button class="btn ghost" id="returnTop">Return to portal ↑</button></section>
+</main>
+<footer><span>© 2026 ORBIT ATELIER</span><span>MADE FOR A WORLD WITHOUT LIMITS</span><span>Orders: pay on delivery</span></footer>
+<div class="overlay" id="portal"><canvas id="tunnel"></canvas><div class="travel"><div class="eyebrow">Portal activated</div><h2>Beyond <span class="gold">the ordinary.</span></h2><p class="eyebrow">Travelling to the fashion dimension</p><button class="mini" id="skipPortal">SKIP INTRO</button></div></div>
+
+<div class="modal" id="productModal"><div class="dialog"><h2 id="pname">Product</h2><p class="muted" id="pdesc"></p><div class="fields"><div class="field"><label>SIZE</label><select id="size"></select></div><div class="field"><label>QUANTITY</label><input id="qty" type="number" min="1" max="10" value="1"></div></div><div class="actions"><button class="mini" data-close="productModal">CANCEL</button><button class="btn" id="addToBag">ADD TO BAG</button></div></div></div>
+<div class="modal" id="cartModal"><div class="dialog"><h2>Your bag</h2><div id="cartItems"></div><div class="cartline"><b>Total</b><b class="gold" id="total">GH₵0.00</b></div><p class="muted">Final prices and available stock are checked securely when you place your order.</p><div class="actions"><button class="mini" data-close="cartModal">CONTINUE SHOPPING</button><button class="btn" id="goCheckout">CHECK OUT</button></div></div></div>
+<div class="modal" id="checkoutModal"><div class="dialog"><h2>Delivery details</h2><p class="muted">Payment method: pay on delivery. Your phone number and delivery location are used only to process this order and are visible to the store administrator.</p><div class="fields"><div class="field"><label>FULL NAME</label><input id="buyer" autocomplete="name" maxlength="120"></div><div class="field"><label>PHONE</label><input id="phone" type="tel" autocomplete="tel" maxlength="40"></div><div class="field full"><label>DELIVERY LOCATION</label><textarea id="address" autocomplete="street-address" maxlength="500"></textarea></div></div><div class="actions"><button class="mini" data-close="checkoutModal">BACK</button><button class="btn" id="placeOrder">PLACE ORDER</button></div></div></div>
+
+<div class="modal" id="sellerModal"><div class="dialog wide"><div class="admin-row"><div><div class="eyebrow">Private access</div><h2>Seller portal</h2><p class="muted" id="sellerMessage">Sign in with the store administrator email. A secure sign-in link will be sent to that inbox.</p></div><button class="mini" data-close="sellerModal">CLOSE</button></div>
+<div id="loginPanel"><div class="fields"><div class="field full"><label>ADMIN EMAIL</label><input id="adminEmail" type="email" autocomplete="email" placeholder="Enter administrator email"></div></div><div class="actions"><button class="btn" id="sendLogin">SEND SECURE SIGN-IN LINK</button></div></div>
+<div id="dashboardPanel" hidden>
+<div class="admin-row"><p class="muted" id="adminIdentity"></p><button class="mini" id="signOut">SIGN OUT</button></div>
+<div class="admin-tabs"><button class="mini active" data-tab="manageProducts">PRODUCTS & STOCK</button><button class="mini" data-tab="manageOrders">ORDERS</button></div>
+<section class="admin-section active" id="manageProducts"><h3>Add a product</h3><p class="muted">Add a shirt or trouser, stock for each size, and several photos from your phone.</p>
+<div class="fields"><div class="field"><label>PRODUCT NAME</label><input id="newName" maxlength="120" placeholder="e.g. Signature Shirt"></div><div class="field"><label>CATEGORY</label><select id="newCategory"><option value="shirts">Shirts</option><option value="trousers">Trousers</option></select></div><div class="field"><label>PRICE (GH₵)</label><input id="newPrice" type="number" min="0" step="0.01"></div><div class="field"><label>SIZE STOCK</label><input id="newSizes" value="S:0,M:0,L:0,XL:0,XXL:0" placeholder="S:4,M:3,L:2"></div><div class="field full"><label>DESCRIPTION</label><textarea id="newDescription" maxlength="2000"></textarea></div><div class="field full"><label>PRODUCT PHOTOS (SELECT MULTIPLE)</label><input id="newImages" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple><span class="muted">Up to 8 images, maximum 8 MB each. JPG, PNG, WebP or AVIF.</span></div></div><button class="btn" id="createProduct">SAVE PRODUCT</button>
+<h3 style="margin-top:28px">Your products</h3><div id="adminProducts"></div></section>
+<section class="admin-section" id="manageOrders"><h3>Customer orders</h3><p class="muted">Customer contact and delivery details are shown only inside this authenticated seller portal.</p><div id="adminOrders"></div></section>
+</div></div></div>
+<div class="notice" id="notice"></div>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/+esm";
+
+const SUPABASE_URL = "https://ljinttjwpnuhwakocvzq.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_3U0WALcybE3uCX1BM6ORMQ_XrKm3lKX";
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const money = n => "GH₵" + Number(n || 0).toFixed(2);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let products = [], cart = [], selected = null, filterBy = "All", isAdmin = false, portalTimer = null;
+
+function toast(message) {
+  const node = document.getElementById("notice");
+  node.textContent = message;
+  node.style.display = "block";
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => node.style.display = "none", 3600);
+}
+function show(id) { document.getElementById(id).classList.add("show"); }
+function close(id) { document.getElementById(id).classList.remove("show"); }
+document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => close(button.dataset.close)));
+
+async function loadProducts() {
+  const { data, error } = await supabase
+    .from("oa_products")
+    .select("id,name,description,category,price,created_at,oa_product_sizes(id,size,stock_quantity),oa_product_images(id,storage_path,alt_text,sort_order)")
+    .eq("is_active", true)
+    .order("created_at", { ascending: false });
+  if (error) {
+    document.getElementById("products").innerHTML = '<p class="muted">The collection could not load right now. Please refresh in a moment.</p>';
+    return;
+  }
+  products = (data || []).map(p => ({
+    ...p,
+    oa_product_sizes: (p.oa_product_sizes || []).sort((a,b) => a.size.localeCompare(b.size)),
+    oa_product_images: (p.oa_product_images || []).sort((a,b) => a.sort_order - b.sort_order)
+  }));
+  renderProducts();
+}
+function imageUrl(path) {
+  return supabase.storage.from("oa-product-images").getPublicUrl(path).data.publicUrl;
+}
+function renderProducts() {
+  const visible = products.filter(p => filterBy === "All" || p.category === filterBy);
+  const root = document.getElementById("products");
+  if (!visible.length) {
+    root.innerHTML = '<p class="muted">The collection is being prepared. New pieces will appear here soon.</p>';
+    return;
+  }
+  root.innerHTML = visible.map(p => {
+    const image = p.oa_product_images[0];
+    const inStock = p.oa_product_sizes.some(s => s.stock_quantity > 0);
+    const art = image ? '<img src="' + esc(imageUrl(image.storage_path)) + '" alt="' + esc(image.alt_text || p.name) + '" loading="lazy">' : '<div class="placeholder">ORBIT</div>';
+    const extra = p.oa_product_images.length > 1 ? '<div class="thumbs">' + p.oa_product_images.slice(1,4).map(i => '<img src="' + esc(imageUrl(i.storage_path)) + '" alt="' + esc(i.alt_text || p.name) + '" loading="lazy">').join("") + '</div>' : "";
+    return '<article class="product"><div class="art">' + art + '</div><div class="info"><h3>' + esc(p.name) + '</h3><p>' + esc(p.category) + ' · ' + esc(p.description || "ORBIT ATELIER collection") + '</p>' + extra + '<div class="stock-note">' + (inStock ? "Available in selected sizes" : "Currently out of stock") + '</div><div class="bottom"><span>' + money(p.price) + '</span><button class="mini" data-add="' + esc(p.id) + '" ' + (!inStock ? "disabled" : "") + '>CHOOSE SIZE +</button></div></div></article>';
+  }).join("");
+  root.querySelectorAll("[data-add]").forEach(button => button.addEventListener("click", () => chooseProduct(button.dataset.add)));
+}
+document.querySelectorAll("[data-filter]").forEach(button => button.addEventListener("click", () => {
+  filterBy = button.dataset.filter === "All" ? "All" : button.dataset.filter;
+  document.querySelectorAll("[data-filter]").forEach(b => b.classList.toggle("active", b === button));
+  renderProducts();
+}));
+
+function chooseProduct(id) {
+  selected = products.find(p => p.id === id);
+  if (!selected) return;
+  document.getElementById("pname").textContent = selected.name;
+  document.getElementById("pdesc").textContent = selected.description || "Select an available size.";
+  const size = document.getElementById("size");
+  const choices = selected.oa_product_sizes.filter(s => s.stock_quantity > 0);
+  size.innerHTML = choices.map(s => '<option value="' + esc(s.size) + '">' + esc(s.size) + ' · ' + s.stock_quantity + ' available</option>').join("");
+  document.getElementById("qty").value = 1;
+  document.getElementById("qty").max = choices.length ? Math.min(10, choices[0].stock_quantity) : 1;
+  show("productModal");
+}
+document.getElementById("size").addEventListener("change", () => {
+  const row = selected?.oa_product_sizes.find(s => s.size === document.getElementById("size").value);
+  document.getElementById("qty").max = row ? Math.min(10, row.stock_quantity) : 1;
+  document.getElementById("qty").value = 1;
+});
+document.getElementById("addToBag").addEventListener("click", () => {
+  if (!selected) return;
+  const size = document.getElementById("size").value;
+  const qty = Math.max(1, Math.min(10, Number(document.getElementById("qty").value) || 1));
+  const stock = selected.oa_product_sizes.find(s => s.size === size)?.stock_quantity || 0;
+  if (qty > stock) return toast("That quantity is not available in this size.");
+  const line = cart.find(x => x.product_id === selected.id && x.size === size);
+  const nextQty = (line?.quantity || 0) + qty;
+  if (nextQty > stock) return toast("Your bag quantity is higher than the available stock.");
+  if (line) line.quantity = nextQty;
+  else cart.push({ product_id: selected.id, name: selected.name, price: Number(selected.price), size, quantity: qty, stock });
+  updateCartCount();
+  close("productModal");
+  toast("Added to your bag.");
+});
+function updateCartCount() {
+  document.getElementById("count").textContent = cart.reduce((n, x) => n + x.quantity, 0);
+}
+function openCart() {
+  const root = document.getElementById("cartItems");
+  root.innerHTML = cart.length ? cart.map((x, i) => '<div class="cartline"><span>' + esc(x.name) + ' · ' + esc(x.size) + ' × ' + x.quantity + '</span><span>' + money(x.price * x.quantity) + ' <button class="mini" data-remove="' + i + '">REMOVE</button></span></div>').join("") : '<p class="muted">Your bag is empty.</p>';
+  root.querySelectorAll("[data-remove]").forEach(b => b.addEventListener("click", () => {
+    cart.splice(Number(b.dataset.remove), 1);
+    updateCartCount();
+    openCart();
+  }));
+  document.getElementById("total").textContent = money(cart.reduce((n, x) => n + x.price * x.quantity, 0));
+  show("cartModal");
+}
+document.getElementById("openCart").addEventListener("click", openCart);
+document.getElementById("goCheckout").addEventListener("click", () => {
+  if (!cart.length) return toast("Your bag is empty.");
+  close("cartModal"); show("checkoutModal");
+});
+document.getElementById("placeOrder").addEventListener("click", async () => {
+  if (!cart.length) return toast("Your bag is empty.");
+  const button = document.getElementById("placeOrder");
+  const buyer_name = document.getElementById("buyer").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const delivery_address = document.getElementById("address").value.trim();
+  if (!buyer_name || !phone || !delivery_address) return toast("Please complete all delivery details.");
+  button.disabled = true; button.textContent = "PLACING ORDER…";
+  try {
+    const { data, error } = await supabase.functions.invoke("oa-create-order", {
+      body: {
+        buyer_name, phone, delivery_address,
+        items: cart.map(x => ({ product_id: x.product_id, size: x.size, quantity: x.quantity }))
+      }
+    });
+    if (error) throw error;
+    if (!data?.success || !data?.order) throw new Error(data?.error || "The order could not be placed.");
+    const order = data.order;
+    cart = []; updateCartCount();
+    document.getElementById("buyer").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("address").value = "";
+    close("checkoutModal");
+    toast("Order #" + order.order_number + " received. Total: " + money(order.total) + ". Pay on delivery.");
+    await loadProducts();
+  } catch (error) {
+    toast(error?.message || "Could not place your order. Please try again.");
+  } finally {
+    button.disabled = false; button.textContent = "PLACE ORDER";
+  }
+});
+
+function sellerOpen() { show("sellerModal"); }
+document.getElementById("openSeller").addEventListener("click", sellerOpen);
+document.getElementById("sendLogin").addEventListener("click", async () => {
+  const email = document.getElementById("adminEmail").value.trim();
+  if (!email) return toast("Enter the administrator email.");
+  const button = document.getElementById("sendLogin");
+  button.disabled = true; button.textContent = "SENDING…";
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: window.location.href, shouldCreateUser: true }
+  });
+  button.disabled = false; button.textContent = "SEND SECURE SIGN-IN LINK";
+  if (error) return toast(error.message);
+  document.getElementById("sellerMessage").textContent = "A sign-in link has been sent if this address is eligible. Open it on this device to continue.";
+  toast("Check your email for the secure sign-in link.");
+});
+async function verifyAdmin() {
+  const { data: sessionData } = await supabase.auth.getSession();
+  const session = sessionData?.session;
+  if (!session) { setAdminState(false); return; }
+  const { data, error } = await supabase.rpc("oa_is_admin");
+  if (error || data !== true) {
+    await supabase.auth.signOut();
+    setAdminState(false);
+    toast("This account is not authorised for the seller portal.");
+    return;
+  }
+  isAdmin = true;
+  document.getElementById("loginPanel").hidden = true;
+  document.getElementById("dashboardPanel").hidden = false;
+  document.getElementById("adminIdentity").textContent = "Signed in securely as " + (session.user.email || "store administrator");
+  await refreshAdmin();
+}
+function setAdminState(value) {
+  isAdmin = value;
+  document.getElementById("loginPanel").hidden = value;
+  document.getElementById("dashboardPanel").hidden = !value;
+}
+supabase.auth.onAuthStateChange((_event, session) => {
+  if (session) setTimeout(verifyAdmin, 0);
+  else setAdminState(false);
+});
+document.getElementById("signOut").addEventListener("click", async () => {
+  await supabase.auth.signOut();
+  setAdminState(false);
+  toast("Signed out.");
+});
+document.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => {
+  document.querySelectorAll("[data-tab]").forEach(b => b.classList.toggle("active", b === button));
+  document.querySelectorAll(".admin-section").forEach(s => s.classList.toggle("active", s.id === button.dataset.tab));
+  if (button.dataset.tab === "manageOrders") loadAdminOrders();
+}));
+async function refreshAdmin() {
+  if (!isAdmin) return;
+  await loadProducts();
+  renderAdminProducts();
+  await loadAdminOrders();
+}
+function renderAdminProducts() {
+  const root = document.getElementById("adminProducts");
+  if (!products.length) { root.innerHTML = '<p class="muted">No active products yet. Add your first product above.</p>'; return; }
+  root.innerHTML = products.map(p => '<div class="admin-card"><div class="admin-row"><div><b>' + esc(p.name) + '</b><div class="muted">' + esc(p.category) + ' · ' + money(p.price) + '</div></div><div class="admin-row"><button class="mini" data-price="' + esc(p.id) + '">EDIT PRICE</button><button class="mini" data-hide="' + esc(p.id) + '">DEACTIVATE</button></div></div><div class="size-stock">' + p.oa_product_sizes.map(s => '<label>' + esc(s.size) + '<input type="number" min="0" max="9999" data-stock="' + esc(s.id) + '" value="' + s.stock_quantity + '"></label>').join("") + '</div><button class="mini" data-save-stock="' + esc(p.id) + '">SAVE STOCK</button><div class="thumbs" style="margin-top:10px">' + p.oa_product_images.map(i => '<img src="' + esc(imageUrl(i.storage_path)) + '" alt="' + esc(i.alt_text || p.name) + '">').join("") + '</div></div>').join("");
+  root.querySelectorAll("[data-save-stock]").forEach(b => b.addEventListener("click", async () => {
+    if (!isAdmin) return;
+    const card = b.closest(".admin-card");
+    const inputs = [...card.querySelectorAll("[data-stock]")];
+    for (const input of inputs) {
+      const value = Number(input.value);
+      if (!Number.isInteger(value) || value < 0 || value > 9999) return toast("Stock must be a whole number from 0 to 9999.");
+      const { error } = await supabase.from("oa_product_sizes").update({ stock_quantity: value }).eq("id", input.dataset.stock);
+      if (error) return toast(error.message);
+    }
+    toast("Stock updated.");
+    await loadProducts(); renderAdminProducts();
+  }));
+  root.querySelectorAll("[data-price]").forEach(b => b.addEventListener("click", async () => {
+    const p = products.find(x => x.id === b.dataset.price);
+    const value = prompt("New price in GH₵", String(p.price));
+    if (value === null) return;
+    const price = Number(value);
+    if (!Number.isFinite(price) || price < 0) return toast("Enter a valid price.");
+    const { error } = await supabase.from("oa_products").update({ price }).eq("id", p.id);
+    if (error) return toast(error.message);
+    toast("Price updated."); await loadProducts(); renderAdminProducts();
+  }));
+  root.querySelectorAll("[data-hide]").forEach(b => b.addEventListener("click", async () => {
+    if (!confirm("Hide this product from the public store?")) return;
+    const { error } = await supabase.from("oa_products").update({ is_active: false }).eq("id", b.dataset.hide);
+    if (error) return toast(error.message);
+    toast("Product hidden."); await loadProducts(); renderAdminProducts();
+  }));
+}
+document.getElementById("createProduct").addEventListener("click", async () => {
+  if (!isAdmin) return toast("Sign in as the store administrator first.");
+  const name = document.getElementById("newName").value.trim();
+  const category = document.getElementById("newCategory").value;
+  const price = Number(document.getElementById("newPrice").value);
+  const description = document.getElementById("newDescription").value.trim();
+  const sizesRaw = document.getElementById("newSizes").value.trim();
+  const files = [...document.getElementById("newImages").files];
+  if (!name || !Number.isFinite(price) || price < 0) return toast("Enter a product name and valid price.");
+  if (files.length > 8) return toast("Choose no more than 8 photos.");
+  if (files.some(f => f.size > 8 * 1024 * 1024 || !["image/jpeg","image/png","image/webp","image/avif"].includes(f.type))) return toast("Each photo must be an allowed image format under 8 MB.");
+  const sizeRows = sizesRaw.split(",").map(pair => {
+    const [size, stock] = pair.split(":").map(x => x.trim());
+    return { size, stock_quantity: Number(stock) };
+  });
+  if (!sizeRows.length || sizeRows.some(s => !s.size || s.size.length > 20 || !Number.isInteger(s.stock_quantity) || s.stock_quantity < 0 || s.stock_quantity > 9999)) return toast("Enter sizes like S:4,M:3,L:2, with whole-number stock.");
+  if (new Set(sizeRows.map(s => s.size.toLowerCase())).size !== sizeRows.length) return toast("Each size can only appear once.");
+  const button = document.getElementById("createProduct");
+  button.disabled = true; button.textContent = "SAVING…";
+  try {
+    const { data: product, error } = await supabase.from("oa_products")
+      .insert({ name, category, price, description, is_active: true }).select().single();
+    if (error) throw error;
+    const { error: sizeError } = await supabase.from("oa_product_sizes")
+      .insert(sizeRows.map(s => ({ product_id: product.id, size: s.size, stock_quantity: s.stock_quantity })));
+    if (sizeError) throw sizeError;
+    const imageRows = [];
+    for (const file of files) {
+      const ext = file.name.split(".").pop().toLowerCase();
+      const path = product.id + "/" + crypto.randomUUID() + "." + ext;
+      const { error: uploadError } = await supabase.storage.from("oa-product-images")
+        .upload(path, file, { cacheControl: "3600", upsert: false, contentType: file.type });
+      if (uploadError) throw uploadError;
+      imageRows.push({ product_id: product.id, storage_path: path, alt_text: name, sort_order: imageRows.length });
+    }
+    if (imageRows.length) {
+      const { error: imageError } = await supabase.from("oa_product_images").insert(imageRows);
+      if (imageError) throw imageError;
+    }
+    document.getElementById("newName").value = "";
+    document.getElementById("newPrice").value = "";
+    document.getElementById("newDescription").value = "";
+    document.getElementById("newImages").value = "";
+    toast("Product saved to the live catalogue.");
+    await loadProducts(); renderAdminProducts();
+  } catch (error) {
+    toast(error?.message || "Could not save this product.");
+  } finally {
+    button.disabled = false; button.textContent = "SAVE PRODUCT";
+  }
+});
+async function loadAdminOrders() {
+  if (!isAdmin) return;
+  const root = document.getElementById("adminOrders");
+  root.innerHTML = '<p class="muted">Loading orders…</p>';
+  const { data, error } = await supabase.from("oa_orders")
+    .select("id,order_number,buyer_name,phone,delivery_address,status,total,created_at,oa_order_items(product_name,size,unit_price,quantity)")
+    .order("created_at", { ascending: false }).limit(100);
+  if (error) { root.innerHTML = '<p class="muted">Could not load orders.</p>'; return; }
+  if (!data?.length) { root.innerHTML = '<p class="muted">No customer orders yet.</p>'; return; }
+  root.innerHTML = data.map(o => '<div class="admin-card"><div class="admin-row"><b>Order #' + esc(o.order_number) + ' · ' + money(o.total) + '</b><span class="muted">' + esc(new Date(o.created_at).toLocaleString()) + '</span></div><p class="muted">' + esc(o.buyer_name) + ' · ' + esc(o.phone) + '<br>' + esc(o.delivery_address) + '</p><p class="muted">' + (o.oa_order_items || []).map(i => esc(i.product_name) + ' / ' + esc(i.size) + ' × ' + i.quantity).join("<br>") + '</p><div class="admin-row"><select class="order-status" data-order-status="' + esc(o.id) + '">' + ["pending","confirmed","processing","dispatched","delivered","cancelled"].map(s => '<option value="' + s + '" ' + (o.status === s ? "selected" : "") + '>' + s.toUpperCase() + '</option>').join("") + '</select><button class="mini" data-save-order="' + esc(o.id) + '">UPDATE STATUS</button></div></div>').join("");
+  root.querySelectorAll("[data-save-order]").forEach(b => b.addEventListener("click", async () => {
+    const id = b.dataset.saveOrder;
+    const status = root.querySelector('[data-order-status="' + id + '"]').value;
+    const { error } = await supabase.from("oa_orders").update({ status }).eq("id", id);
+    if (error) return toast(error.message);
+    toast("Order status updated.");
+  }));
+}
+document.getElementById("enterShop").addEventListener("click", () => {
+  show("portal"); drawTunnel(); portalTimer = setTimeout(skipPortal, 3200);
+});
+function skipPortal() {
+  clearTimeout(portalTimer); close("portal");
+  document.getElementById("collection").scrollIntoView({ behavior: "smooth" });
+}
+document.getElementById("skipPortal").addEventListener("click", skipPortal);
+document.getElementById("returnTop").addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+
+const canvas = document.getElementById("stars"), ctx = canvas.getContext("2d");
+let stars = [];
+function resizeStars() {
+  canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  stars = Array.from({length:130}, () => ({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.5+.3}));
+}
+function animateStars() {
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  stars.forEach(s => { s.y += .15; if (s.y > innerHeight) s.y = 0; ctx.fillStyle = "rgba(235,211,168,.6)"; ctx.fillRect(s.x,s.y,s.r,s.r); });
+  for (let i=0;i<9;i++) { ctx.beginPath(); ctx.ellipse(innerWidth/2,innerHeight/2,90+i*13,120+i*15,0,0,Math.PI*2); ctx.strokeStyle = "rgba(211,174,111,"+(.18-i*.014)+")"; ctx.stroke(); }
+  requestAnimationFrame(animateStars);
+}
+addEventListener("resize", resizeStars); resizeStars(); animateStars();
+function drawTunnel() {
+  const cv = document.getElementById("tunnel"), g = cv.getContext("2d");
+  const w = cv.width = innerWidth * devicePixelRatio, h = cv.height = innerHeight * devicePixelRatio;
+  let t = 0;
+  function frame() {
+    if (!document.getElementById("portal").classList.contains("show")) return;
+    t += .02; g.fillStyle = "#050407"; g.fillRect(0,0,w,h);
+    for (let i=0;i<80;i++) { const z=(i/80+t*.14)%1, r=(1-z)*Math.min(w,h)*.8+4; g.beginPath(); g.ellipse(w/2,h/2,r*.7,r,Math.sin(t+i)*.05,0,Math.PI*2); g.strokeStyle="rgba(218,184,121,"+(z*.5)+")"; g.stroke(); }
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+await loadProducts();
+const { data: initialSession } = await supabase.auth.getSession();
+if (initialSession?.session) await verifyAdmin();
+</script>
+</body>
+</html>
