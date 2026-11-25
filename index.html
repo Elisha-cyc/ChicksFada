@@ -63,6 +63,7 @@ footer{border-top:1px solid var(--line);padding:30px 6vw;display:flex;justify-co
 
 
 /* The globe is the storefront; the separate catalogue layout is intentionally hidden. */
+.nav{display:none}body.orbit-entered .nav{display:flex}
 #collection,.section.intro{display:none!important}
 .globe-foot{align-items:end}
 .globe-shop-controls{display:flex;flex-direction:column;gap:12px}
@@ -426,6 +427,7 @@ document.getElementById("enterShop").addEventListener("click", () => {
   landing.classList.add("blast");
   setTimeout(() => {
     landing.style.display = "none";
+    document.body.classList.add("orbit-entered");
     document.getElementById("globeStage").classList.add("active");
     if (!globeApp) globeApp = createHolographicGlobe();
     else globeApp.resize();
