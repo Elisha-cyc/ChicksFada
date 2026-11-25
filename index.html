@@ -253,8 +253,7 @@ document.getElementById("placeOrder").addEventListener("click", async () => {
     document.getElementById("address").value = "";
     close("checkoutModal");
     toast("Order #" + order.order_number + " received. Total: " + money(order.total) + ". Pay on delivery.");
-    await if (new URLSearchParams(location.search).get("admin") === "1") { document.body.classList.add("admin-mode"); show("sellerModal"); }
-loadProducts();
+    await loadProducts();
   } catch (error) {
     toast(error?.message || "Could not place your order. Please try again.");
   } finally {
@@ -262,8 +261,6 @@ loadProducts();
   }
 });
 
-function sellerOpen() { show("sellerModal"); }
-document.getElementById("openSeller").addEventListener("click", sellerOpen);
 document.getElementById("sendLogin").addEventListener("click", async () => {
   const email = document.getElementById("adminEmail").value.trim();
   if (!email) return toast("Enter the administrator email.");
@@ -526,6 +523,7 @@ function drawTunnel() {
   frame();
 }
 
+if (new URLSearchParams(location.search).get("admin") === "1") { document.body.classList.add("admin-mode"); show("sellerModal"); }
 await loadProducts();
 const { data: initialSession } = await supabase.auth.getSession();
 if (initialSession?.session) await verifyAdmin();
