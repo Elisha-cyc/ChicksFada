@@ -265,9 +265,10 @@ document.getElementById("sendLogin").addEventListener("click", async () => {
   if (!email) return toast("Enter the administrator email.");
   const button = document.getElementById("sendLogin");
   button.disabled = true; button.textContent = "SENDING…";
+  const redirectTo = new URL("./index.html?admin=1", document.baseURI).href;
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: window.location.href, shouldCreateUser: true }
+    options: { emailRedirectTo: redirectTo, shouldCreateUser: true }
   });
   button.disabled = false; button.textContent = "SEND SECURE SIGN-IN LINK";
   if (error) return toast(error.message);
@@ -508,12 +509,23 @@ function createHolographicGlobe() {
     const frame=new THREE.Mesh(new THREE.PlaneGeometry(.82,1.08),new THREE.MeshBasicMaterial({color:0xc9a15e,wireframe:true,transparent:true,opacity:.8}));
     cardGroup.add(frame);
     const image=p.oa_product_images?.[0];
-    if(image){loader.load(imageUrl(image.storage_path),tex=>{tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=renderer.capabilities.getMaxAnisotropy();const geometry=new THREE.PlaneGeometry(.72,.94);const halo=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x70dfff,transparent:true,opacity:.19,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));halo.position.set(.018,-.012,.018);halo.scale.set(1.055,1.055,1);cardGroup.add(halo);const mesh=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true}));mesh.position.z=.032;mesh.userData.productId=p.id;cardGroup.add(mesh);const scan=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.075,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));scan.position.z=.045;cardGroup.add(scan);hologramCards.push({card:cardGroup,phase:i*.8,halo});cards.push(mesh)});}
-    else {const dot=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0x292027,side:THREE.DoubleSide}));dot.userData.productId=p.id;cardGroup.add(dot);cards.push(dot)}
+    const demoImageUrl = new URL("./demo-shirt.svg", document.baseURI).href;
+    loader.load(image ? imageUrl(image.storage_path) : demoImageUrl,tex=>{
+      tex.colorSpace=THREE.SRGBColorSpace;
+      tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+      const geometry=new THREE.PlaneGeometry(.72,.94);
+      const halo=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color:0x70dfff,transparent:true,opacity:.19,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
+      halo.position.set(.018,-.012,.018);halo.scale.set(1.055,1.055,1);cardGroup.add(halo);
+      const mesh=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true}));
+      mesh.position.z=.032;mesh.userData.productId=p.id;cardGroup.add(mesh);
+      const scan=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.075,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));
+      scan.position.z=.045;cardGroup.add(scan);
+      hologramCards.push({card:cardGroup,phase:i*.8,halo});cards.push(mesh);
+    },undefined,()=>{});
     frame.userData.productId=p.id; cards.push(frame); group.add(cardGroup);
   });
   if (!available.length) {
-    loader.load("./demo-shirt.svg", tex => {
+    loader.load(new URL("./demo-shirt.svg", document.baseURI).href, tex => {
       tex.colorSpace = THREE.SRGBColorSpace;
       const demoGroup = new THREE.Group();
       demoGroup.position.set(0, 0, 2.52);
