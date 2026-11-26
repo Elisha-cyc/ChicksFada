@@ -103,7 +103,7 @@ body.admin-mode #sellerModal .dialog{max-height:none;width:min(1000px,100%);marg
 <div class="admin-row"><p class="muted" id="adminIdentity"></p><button class="mini" id="signOut">SIGN OUT</button></div>
 <div class="admin-tabs"><button class="mini active" data-tab="manageProducts">PRODUCTS & STOCK</button><button class="mini" data-tab="manageOrders">ORDERS</button><button class="mini" id="adminAccessTab" data-tab="manageAdmins" hidden>ADMIN ACCESS</button></div>
 <section class="admin-section active" id="manageProducts"><h3>Add a product</h3><p class="muted">Add a shirt or trouser, stock for each size, and several photos from your phone.</p>
-<div class="fields"><div class="field"><label>PRODUCT NAME</label><input id="newName" maxlength="120" placeholder="e.g. Signature Shirt"></div><div class="field"><label>CATEGORY</label><select id="newCategory"><option value="shirts">Shirts</option><option value="trousers">Trousers</option></select></div><div class="field"><label>PRICE (GH₵)</label><input id="newPrice" type="number" min="0" step="0.01"></div><div class="field"><label>SIZE STOCK</label><input id="newSizes" value="S:0,M:0,L:0,XL:0,XXL:0" placeholder="S:4,M:3,L:2"></div><div class="field full"><label>DESCRIPTION</label><textarea id="newDescription" maxlength="2000"></textarea></div><div class="field full"><label>PRODUCT PHOTOS (SELECT MULTIPLE)</label><input id="newImages" type="file" accept="image/*" multiple><span class="muted">Up to 8 images, maximum 8 MB each. Common browser-supported image formats are accepted; unsupported or damaged files will be rejected.</span></div></div><button class="btn" id="createProduct">SAVE PRODUCT</button>
+<div class="fields"><div class="field"><label>PRODUCT NAME</label><input id="newName" maxlength="120" placeholder="e.g. Signature Shirt"></div><div class="field"><label>CATEGORY</label><select id="newCategory"><option value="shirts">Shirts</option><option value="trousers">Trousers</option></select></div><div class="field"><label>PRICE (GH₵)</label><input id="newPrice" type="number" min="0" step="0.01"></div><div class="field"><label>SIZE STOCK</label><input id="newSizes" value="S:0,M:0,L:0,XL:0,XXL:0" placeholder="S:4,M:3,L:2"></div><div class="field full"><label>DESCRIPTION</label><textarea id="newDescription" maxlength="2000"></textarea></div><div class="field full"><label>PRODUCT PHOTOS (SELECT MULTIPLE)</label><input id="newImages" type="file" accept="image/jpeg,image/png,image/webp,image/avif,.jpg,.jpeg,.png,.webp,.avif" multiple><span class="muted">Choose JPG, PNG, WEBP or AVIF photos. Up to 8 images, maximum 8 MB each. At least one photo is required.</span></div></div><button class="btn" id="createProduct">SAVE PRODUCT</button>
 <h3 style="margin-top:28px">Your products</h3><div id="adminProducts"></div></section>
 <section class="admin-section" id="manageOrders"><h3>Customer orders</h3><p class="muted">Customer contact and delivery details are shown only inside this authenticated seller portal.</p><div id="adminOrders"></div></section><section class="admin-section" id="manageAdmins"><h3>Administrator access</h3><p class="muted">Only the store owner can invite or remove administrators. Invited people sign in using their own email address and secure sign-in link.</p><div class="fields"><div class="field full"><label>EMAIL TO AUTHORISE</label><input id="newAdminEmail" type="email" autocomplete="email" placeholder="person@example.com"></div></div><button class="btn" id="addAdmin">AUTHORISE ADMIN</button><div id="adminList" style="margin-top:18px"></div></section>
 </div></div></div>
@@ -365,8 +365,10 @@ document.getElementById("createProduct").addEventListener("click", async () => {
   const sizesRaw = document.getElementById("newSizes").value.trim();
   const files = [...document.getElementById("newImages").files];
   if (!name || !Number.isFinite(price) || price < 0) return toast("Enter a product name and valid price.");
+  if (!files.length) return toast("Please choose at least one product photo before saving.");
   if (files.length > 8) return toast("Choose no more than 8 photos.");
-  if (files.some(f => f.size > 8 * 1024 * 1024 || !f.type.startsWith("image/"))) return toast("Choose valid image files under 8 MB each.");
+  const allowedTypes = ["image/jpeg","image/png","image/webp","image/avif"];
+  if (files.some(f => f.size > 8 * 1024 * 1024 || !allowedTypes.includes(f.type))) return toast("Use JPG, PNG, WEBP or AVIF photos under 8 MB each.");
   const sizeRows = sizesRaw.split(",").map(pair => {
     const [size, stock] = pair.split(":").map(x => x.trim());
     return { size, stock_quantity: Number(stock) };
@@ -402,7 +404,10 @@ document.getElementById("createProduct").addEventListener("click", async () => {
     toast("Product saved to the live catalogue.");
     await loadProducts(); renderAdminProducts();
   } catch (error) {
-    toast(error?.message || "Could not save this product.");
+    console.error("ORBIT product save/upload failed:", error);
+    const detail = error?.message || error?.error_description || "Unknown upload error";
+    toast("Product was not fully saved: " + detail);
+    await refreshAdmin();
   } finally {
     button.disabled = false; button.textContent = "SAVE PRODUCT";
   }
