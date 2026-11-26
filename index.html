@@ -512,8 +512,8 @@ function createHolographicGlobe() {
     const frame=new THREE.Mesh(new THREE.PlaneGeometry(1.08,1.42),new THREE.MeshBasicMaterial({color:0xc9a15e,wireframe:true,transparent:true,opacity:.8}));
     cardGroup.add(frame);
     const image=p.oa_product_images?.[0];
-    const demoImageUrl = new URL("./demo-shirt.svg", document.baseURI).href;
-    loader.load(image ? imageUrl(image.storage_path) : demoImageUrl,tex=>{
+    if (!image) { frame.userData.productId=p.id; cards.push(frame); group.add(cardGroup); return; }
+    loader.load(imageUrl(image.storage_path),tex=>{
       tex.colorSpace=THREE.SRGBColorSpace;
       tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
       const geometry=new THREE.PlaneGeometry(.96,1.25);
@@ -524,32 +524,10 @@ function createHolographicGlobe() {
       const scan=new THREE.Mesh(new THREE.PlaneGeometry(.72,.94),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.075,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));
       scan.position.z=.045;cardGroup.add(scan);
       hologramCards.push({card:cardGroup,phase:i*.8,halo});cards.push(mesh);
-    },undefined,()=>{
-      // If a customer photo cannot load, keep a visible demo garment in its place.
-      loader.load(demoImageUrl, fallbackTex => {
-        fallbackTex.colorSpace = THREE.SRGBColorSpace;
-        const fallback = new THREE.Mesh(new THREE.PlaneGeometry(.96,1.25),new THREE.MeshBasicMaterial({map:fallbackTex,side:THREE.DoubleSide,transparent:true}));
-        fallback.position.z = .04; fallback.userData.productId = p.id; cardGroup.add(fallback); cards.push(fallback);
-      });
-    });
+    },undefined,()=>{ console.warn("ORBIT product image could not be loaded:", p.id); });
     frame.userData.productId=p.id; cards.push(frame); group.add(cardGroup);
   });
-  if (!available.length) {
-    loader.load(new URL("./demo-shirt.svg", document.baseURI).href, tex => {
-      tex.colorSpace = THREE.SRGBColorSpace;
-      const demoGroup = new THREE.Group();
-      demoGroup.position.set(0, 0, 2.52);
-      demoGroup.lookAt(0, 0, 5);
-      const glow = new THREE.Mesh(new THREE.PlaneGeometry(1.42, 1.84), new THREE.MeshBasicMaterial({color:0xe3b75f,transparent:true,opacity:.24,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false}));
-      glow.position.z = .01; glow.renderOrder = 19; demoGroup.add(glow);
-      const preview = new THREE.Mesh(new THREE.PlaneGeometry(1.32,1.72),new THREE.MeshBasicMaterial({map:tex,side:THREE.DoubleSide,transparent:true,depthWrite:false,depthTest:false}));
-      preview.position.z = .055; preview.renderOrder = 20; demoGroup.add(preview);
-      const scan = new THREE.Mesh(new THREE.PlaneGeometry(1.32,1.72),new THREE.MeshBasicMaterial({color:0xb8eaff,transparent:true,opacity:.08,side:THREE.DoubleSide,wireframe:true,depthWrite:false}));
-      scan.position.z = .05; demoGroup.add(scan);
-      group.add(demoGroup);
-    });
-  }
-  const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
+  // No demo garment is shown when the store has no real products.  const raycaster=new THREE.Raycaster(), pointer=new THREE.Vector2();
   let down=false, px=0,py=0, moved=false, selectedId=null;
   host.addEventListener("pointerdown",e=>{down=true;px=e.clientX;py=e.clientY;moved=false;host.setPointerCapture(e.pointerId)});
   host.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-px,dy=e.clientY-py;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;group.rotation.y+=dx*.006;group.rotation.x+=dy*.004;px=e.clientX;py=e.clientY});
